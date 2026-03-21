@@ -4,12 +4,14 @@
 TagManager:
   serializedVersion: 3
   tags:
+  - UMAKeepChain
   - LevelPart
   - Dummie
   - SecondCamera
   - BulletSpawn
   - Weapon
   - Target
+  - UMAIgnore
   layers:
   - Default
   - TransparentFX

@@ -11,7 +11,9 @@ public class PlayerMovementScript : MonoBehaviour {
 	[HideInInspector]public Transform cameraMain;
 	[Tooltip("Force that moves player into jump")]
 	public float jumpForce = 500;
-	[Tooltip("Position of the camera inside the player")]
+    [Tooltip("ジャンプ中かのフラグ")]
+    [HideInInspector] public bool isJumping;
+    [Tooltip("Position of the camera inside the player")]
 	[HideInInspector]public Vector3 cameraPosition;
 
 	/*

@@ -1,5 +1,18 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-1009315074542156772
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 10
 --- !u!21 &2100000
 Material:
   serializedVersion: 8
@@ -8,24 +21,25 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: HairMatBiRP
-  m_Shader: {fileID: 4800000, guid: def76a94c229c2a4dae4e0ec3bcd8cca, type: 3}
-  m_ValidKeywords: []
-  m_InvalidKeywords:
-  - EFFECT_BUMP
-  - EFFECT_HUE_VARIATION
-  - _ALPHABLEND_ON
-  - _METALLICGLOSSMAP
+  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - _ALPHATEST_ON
+  - _METALLICSPECGLOSSMAP
   - _NORMALMAP
-  - _USEHALFLAMBERT_ON
-  - _USEHASHING_OFF
-  - _WINDQUALITY_NONE
+  - _OCCLUSIONMAP
+  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 1
-  m_CustomRenderQueue: -1
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: 2450
   stringTagMap:
     Keep: Keep
-  disabledShaderPasses: []
+    RenderType: TransparentCutout
+  disabledShaderPasses:
+  - MOTIONVECTORS
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -219,8 +233,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _AddPrecomputedVelocity: 0
     - _AlphaClip: 0.5
     - _AlphaModulation: 2
+    - _AlphaToMask: 1
     - _AnisoFour: 4.61
     - _AnisoOffset: 1
     - _AnisoRot: 0.25
@@ -232,6 +248,7 @@ Material:
     - _BillboardKwToggle: 0
     - _BillboardShadowFade: 0.5
     - _Blend: 0
+    - _BlendModePreserveSpecular: 1
     - _BumpScale: 0.905
     - _BumpStrength: 0.4
     - _ClearCoatMask: 0
@@ -242,6 +259,7 @@ Material:
     - _Cutoff: 0.6
     - _CutoffOffset: 0.409
     - _Cutout: 0.15
+    - _DetailAlbedoMapScale: 1
     - _DetailAlbedoStrength: 1
     - _DetailBumpMapScale: 1
     - _DetailNormalMapScale: 1
@@ -249,7 +267,8 @@ Material:
     - _DetailSmoothnessStrength: 1
     - _Distortion: 1.267
     - _DoubleSidedNormalMode: 2
-    - _DstBlend: 10
+    - _DstBlend: 0
+    - _DstBlendAlpha: 0
     - _EmissionStrength: 1
     - _EmissiveModulation: 1
     - _EnvironmentReflections: 1
@@ -307,7 +326,8 @@ Material:
     - _SmoothnessStrength: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
-    - _SrcBlend: 5
+    - _SrcBlend: 1
+    - _SrcBlendAlpha: 1
     - _Subsurface: 0.355
     - _SubsurfaceIndirect: 0.25
     - _SubsurfaceKwToggle: 0
@@ -339,9 +359,10 @@ Material:
     - _UseMaskMap: 0
     - _UseSkinScattering: 0
     - _WindQuality: 0
+    - _WorkflowMode: 1
     - _WrappingFactor: 0.01
     - _WrappingPowerFactor: 1
-    - _ZWrite: 0
+    - _ZWrite: 1
     - __dirty: 1
     m_Colors:
     - _Add0_0: {r: 0, g: 0, b: 0, a: 0}
@@ -363,7 +384,7 @@ Material:
     - _BlueColor1: {r: 1, g: 1, b: 1, a: 1}
     - _BlueColor2: {r: 1, g: 1, b: 1, a: 1}
     - _BlueColor3: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 0.5660378, g: 0.30104628, b: 0.27233887, a: 1}
+    - _Color: {r: 0.59748423, g: 0.21070799, b: 0.062002994, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _GreenColor0: {r: 1, g: 1, b: 1, a: 1}
     - _GreenColor1: {r: 1, g: 1, b: 1, a: 1}
@@ -395,3 +416,4 @@ Material:
     - _Tint3_1: {r: 1, g: 1, b: 1, a: 1}
     - _Tint3_2: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
+  m_AllowLocking: 1

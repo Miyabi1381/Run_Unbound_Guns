@@ -79,7 +79,8 @@ public class PlayerMovementScript : MonoBehaviour {
 	* Handles jumping and ads the force and sounds.
 	*/
 	void Jumping(){
-		if (Input.GetKeyDown (KeyCode.Space) && grounded) {
+		if (Input.GetKeyDown (KeyCode.Space) && grounded)
+		{
 			rb.AddRelativeForce (Vector3.up * jumpForce);
 			if (_jumpSound)
 				_jumpSound.Play ();

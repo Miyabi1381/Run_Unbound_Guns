@@ -11,6 +11,10 @@ public class EnemySpawner : MonoBehaviour
     [HideInInspector] public int spawnedCount;
     [Tooltip("現在スポーンしている数")]
     [HideInInspector] public int currentSpawnCount;
+    [Tooltip("スポーンする間隔")]
+    public float spawnInterval = 1;
+    [Tooltip("スポーン間隔を測るタイマー")]
+    [HideInInspector] public float timer;
     [Tooltip("敵プレファブを登録")]
     public EnemyController enemyPrefab;
 
@@ -24,10 +28,17 @@ public class EnemySpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // スポーン上限に満たしていないならスポーンさせる
-        if (spawnedCount < spawnUpperLimit)
+        // タイマーがスポーン間隔を満たしたらスポーンさせる
+        timer += Time.deltaTime;
+
+        if (timer >= spawnInterval)
         {
-            if (currentSpawnCount < spawnLimit)
+            // タイマーをリセットする
+            timer = 0;
+
+            // スポーン上限に満たしていないならスポーンさせる
+            if ((spawnedCount < spawnUpperLimit)
+                && (currentSpawnCount < spawnLimit))
             {
                 InstantiateEnemy();
             }
@@ -37,8 +48,22 @@ public class EnemySpawner : MonoBehaviour
 
     private void InstantiateEnemy()
     {
-        // 敵をスポーンさせて、スポーンカウントする
-        Instantiate(enemyPrefab);
+        // 敵をスポーンさせる
+        EnemyController enemy = Instantiate(enemyPrefab);
+
+        // アタッチされたHPスクリプトを取得する
+        HPScript hp = enemy.GetComponent<HPScript>();
+
+        // 敵が倒されたらスポーンカウントを減らす関数（ラムダ式）
+        if (hp != null)
+        {
+            hp.onDeath += () =>
+            {
+                currentSpawnCount--;
+            };
+        }
+
+        // スポーンカウントを足す
         currentSpawnCount++;
         spawnedCount++;
     }

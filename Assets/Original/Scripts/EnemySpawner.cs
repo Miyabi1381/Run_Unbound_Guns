@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
@@ -6,6 +7,8 @@ public class EnemySpawner : MonoBehaviour
     public int spawnUpperLimit;
     [Tooltip("未設定")]
     public int a;
+    [Tooltip("敵プレファブ")]
+    public EnemyController enemyPrefab;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -17,6 +20,6 @@ public class EnemySpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        Instantiate(enemyPrefab);
     }
 }

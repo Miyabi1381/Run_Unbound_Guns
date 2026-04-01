@@ -11,7 +11,7 @@ TagManager:
   - BulletSpawn
   - Weapon
   - Target
-  - UMAIgnore
+  - Enemy
   layers:
   - Default
   - TransparentFX

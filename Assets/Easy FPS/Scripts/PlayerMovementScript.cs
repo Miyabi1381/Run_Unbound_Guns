@@ -15,16 +15,25 @@ public class PlayerMovementScript : MonoBehaviour {
     [HideInInspector] public bool isJumping;
     [Tooltip("Position of the camera inside the player")]
 	[HideInInspector]public Vector3 cameraPosition;
+	[Tooltip("プレイヤーの位置を示すシングルトン")]
+	[HideInInspector] public static PlayerMovementScript instance;
 
-	/*
+    /*
 	 * Getting the Players rigidbody component.
 	 * And grabbing the mainCamera from Players child transform.
 	 */
-	void Awake(){
+    void Awake(){
 		rb = GetComponent<Rigidbody>();
 		cameraMain = transform.Find("Main Camera").transform;
 		bulletSpawn = cameraMain.Find ("BulletSpawn").transform;
 		ignoreLayer = 1 << LayerMask.NameToLayer ("Player");
+
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        instance = this;
 
 	}
 	private Vector3 slowdownV;

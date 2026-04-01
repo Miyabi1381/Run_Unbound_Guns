@@ -487,6 +487,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnUpperLimit: 0
   a: 0
+  enemyPrefab: {fileID: 2279077089010134958, guid: b0c47b6093c974b4d94acfa8f34f898d, type: 3}
 --- !u!1001 &1430476724
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -583,7 +584,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6661804543232801685, guid: c391f12a928274acab8576bb6030641d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 6661804543232801685, guid: c391f12a928274acab8576bb6030641d, type: 3}
       propertyPath: m_LocalPosition.z

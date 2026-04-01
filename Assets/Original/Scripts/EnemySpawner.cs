@@ -1,13 +1,17 @@
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
     [Tooltip("ステージクリア条件である1ステージのスポーン上限")]
     public int spawnUpperLimit;
-    [Tooltip("未設定")]
-    public int a;
-    [Tooltip("敵プレファブ")]
+    [Tooltip("一度にスポーンできる上限")]
+    public int spawnLimit;
+    [Tooltip("これまでにスポーンした総数")]
+    [HideInInspector] public int spawnedCount;
+    [Tooltip("現在スポーンしている数")]
+    [HideInInspector] public int currentSpawnCount;
+    [Tooltip("敵プレファブを登録")]
     public EnemyController enemyPrefab;
 
 
@@ -20,6 +24,23 @@ public class EnemySpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Instantiate(enemyPrefab);
+        // スポーン上限に満たしていないならスポーンさせる
+        if (spawnedCount < spawnUpperLimit)
+        {
+            if (currentSpawnCount < spawnLimit)
+            {
+                InstantiateEnemy();
+            }
+
+        }
     }
+
+    private void InstantiateEnemy()
+    {
+        // 敵をスポーンさせて、スポーンカウントする
+        Instantiate(enemyPrefab);
+        currentSpawnCount++;
+        spawnedCount++;
+    }
+
 }

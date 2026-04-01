@@ -49,6 +49,15 @@ public class BulletScript : MonoBehaviour {
                     Destroy(gameObject);
                 }
 
+                if (hit.transform.tag == "Enemy")
+                {
+                    if (hit.collider.TryGetComponent<HPScript>(out HPScript hpScript))
+                    {
+                        hpScript.TakeDamage(damage);
+                    }
+
+                }
+
                 if (hit.transform.tag == "Dummie")
                 {
                     if (hit.collider.TryGetComponent<HPScript>(out HPScript hpScript))

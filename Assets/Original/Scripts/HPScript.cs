@@ -54,8 +54,8 @@ public class HPScript : MonoBehaviour
     public void Dead()
     {
         onDeath?.Invoke();
-        Destroy(gameObject);
         Debug.Log("標的は破壊された！");
+        Destroy(gameObject);
 
     }
 

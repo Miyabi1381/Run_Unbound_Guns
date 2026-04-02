@@ -1,8 +1,10 @@
 ﻿using UnityEditor;
 using UnityEngine;
+using TMPro;
 
 public class EnemySpawner : MonoBehaviour
 {
+    // エネミースポナー
     [Tooltip("ステージクリア条件である1ステージのスポーン上限")]
     public int spawnUpperLimit;
     [Tooltip("一度にスポーンできる上限")]
@@ -18,19 +20,33 @@ public class EnemySpawner : MonoBehaviour
     [Tooltip("敵プレファブを登録")]
     public EnemyController enemyPrefab;
 
+    // UI
+    [Tooltip("UI（敵の数）のオブジェクト")]
+    GameObject enemyTxt;
+    [Tooltip("UI（ウェーブ数）のオブジェクト")]
+    GameObject waveTxt;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        // 変数とテキストを結び付けて画面に表示する+テキストを更新
+        enemyTxt = GameObject.Find("EnemyCounts");
+        waveTxt  = GameObject.Find("WaveCounts");
+        enemyTxt.SetActive(true);
+        waveTxt.SetActive(true);
+        UIUpdate();
+
+        // 敵をスポーンさせる
+        InstantiateEnemy();
     }
+
 
     // Update is called once per frame
     void Update()
     {
         // タイマーがスポーン間隔を満たしたらスポーンさせる
         timer += Time.deltaTime;
-
         if (timer >= spawnInterval)
         {
             // タイマーをリセットする
@@ -46,6 +62,8 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
+
+    // 敵を生成する
     private void InstantiateEnemy()
     {
         // 敵をスポーンさせる
@@ -61,11 +79,20 @@ public class EnemySpawner : MonoBehaviour
             {
                 currentSpawnCount--;
             };
+
         }
 
-        // スポーンカウントを足す
+        // スポーンカウントを足す+テキストを更新
         currentSpawnCount++;
         spawnedCount++;
+        UIUpdate();
     }
 
+
+    // UIを更新する
+    private void UIUpdate()
+    {
+        enemyTxt.GetComponent<TextMeshProUGUI>().text = (spawnUpperLimit - spawnedCount + 1) + "/" + spawnUpperLimit;
+        waveTxt.GetComponent<TextMeshProUGUI>().text = "1";
+    }
 }

@@ -18,6 +18,8 @@ public class EnemySpawner : MonoBehaviour
     public int spawnUpperLimit;
     [Tooltip("一度にスポーンできる上限")]
     public int spawnLimit;
+    [Tooltip("これまでにスポーンした総数")]
+    [HideInInspector] public int spawnCount;
     [Tooltip("これまでにキルした総数")]
     [HideInInspector] public int killCount;
     [Tooltip("現在スポーンしている数")]
@@ -55,7 +57,6 @@ public class EnemySpawner : MonoBehaviour
         // プレイヤーのキャッシュを一度だけ取得
         player = PlayerMovementScript.instance.transform;
 
-
         // 変数とテキストを結び付けてクリア以外画面に表示する+テキストを更新
         enemyTxt = GameObject.Find("EnemyCounts");
         waveTxt  = GameObject.Find("WaveCounts");
@@ -81,13 +82,13 @@ public class EnemySpawner : MonoBehaviour
             timer = 0;
 
             // スポーン上限に達したならクリア表示をする
-            if (killCount == spawnUpperLimit)
+            if (killCount >= spawnUpperLimit)
             {
                 clearTxt.SetActive(true);
             }
 
             // スポーン上限に満たしていないならスポーンさせる
-            if ((killCount < spawnUpperLimit)
+            if ((spawnCount < spawnUpperLimit)
                 && (currentSpawnCount < spawnLimit))
             {
                 InstantiateEnemy();
@@ -109,7 +110,7 @@ public class EnemySpawner : MonoBehaviour
         // アタッチされたHPスクリプトを取得する
         HPScript hp = enemy.GetComponent<HPScript>();
 
-        // 敵が倒されたらスポーンカウントを減らす関数（ラムダ式）
+        // 敵が倒されたらカウント+UIの更新をする関数（ラムダ式）
         if (hp != null)
         {
             hp.onDeath += () =>
@@ -121,24 +122,37 @@ public class EnemySpawner : MonoBehaviour
 
         }
 
-        // スポーンカウントを足す+テキストを更新
+        // スポーンカウントを足す
         currentSpawnCount++;
+        spawnCount++;
     }
 
 
     // スポーンさせる位置をランダムに取得
     public Vector3 GetSpawnPos()
     {
-        float angle = UnityEngine.Random.Range(0f, 360f);                                   // プレイヤーを中心にスポーンする方向(角度)
-        float distance   = UnityEngine.Random.Range(nearSpawnDistance, farSpawnDistance);   // プレイヤーを中心にスポーンする範囲(距離)
+        // スポーン可能なX/Zの範囲をステージ内で制限 (memo: MaxとMinが逆なのは、ステージの端と生成円の端のより内側にあるもの(大小)を優先するから。)
+        float minX = Mathf.Max(stageMinX, player.position.x - farSpawnDistance);
+        float maxX = Mathf.Min(stageMaxX, player.position.x + farSpawnDistance);
+        float minZ = Mathf.Max(stageMinZ, player.position.z - farSpawnDistance);
+        float maxZ = Mathf.Min(stageMaxZ, player.position.z + farSpawnDistance);
+
+        // プレイヤーを中心にスポーンする情報を取得
+        float angle    = UnityEngine.Random.Range(0f, 360f);                              ///< 角度
+        float distance = UnityEngine.Random.Range(nearSpawnDistance, farSpawnDistance);   ///< 距離
 
         // 情報を[角度]と[距離]から[座標]に変換する
-        float x = Mathf.Cos(angle * Mathf.Deg2Rad) * distance;
-        float z = Mathf.Sin(angle * Mathf.Deg2Rad) * distance;
+        float x = player.position.x + Mathf.Cos(angle * Mathf.Deg2Rad) * distance;
+        float z = player.position.z + Mathf.Sin(angle * Mathf.Deg2Rad) * distance;
+
+        // 割り出した座標をステージ内に収める
+        x = Mathf.Clamp(x, minX, maxX);
+        z = Mathf.Clamp(z, minZ, maxZ);
+
         return new Vector3(
-            player.position.x + x,
+            x,
             enemyPrefab.transform.position.y,
-            player.position.z + z
+            z
             );
     }
 

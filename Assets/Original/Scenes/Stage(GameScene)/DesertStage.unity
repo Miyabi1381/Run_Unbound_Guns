@@ -561,7 +561,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -1031,63 +1031,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1020694110}
   m_CullTransparentMesh: 1
---- !u!1 &1056252182
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1056252183}
-  - component: {fileID: 1056252184}
-  m_Layer: 0
-  m_Name: EnemySpawner
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1056252183
+--- !u!4 &1056252183 stripped
 Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 1961486441866887434, guid: 7911900928914b246b068c4a32818092, type: 3}
+  m_PrefabInstance: {fileID: 4837008493689284396}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1056252182}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 264633826}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1056252184
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1056252182}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6965b4240fa4ee41b4c7f706019aab7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 2279077089010134958, guid: b0c47b6093c974b4d94acfa8f34f898d, type: 3}
-  spawnUpperLimit: 10
-  spawnLimit: 5
-  killCount: 0
-  currentSpawnCount: 0
-  spawnInterval: 3
-  timer: 0
-  nearSpawnDistance: 20
-  farSpawnDistance: 25
-  stageMinX: -45
-  stageMaxX: 45
-  stageMinZ: -45
-  stageMaxZ: 45
 --- !u!1 &1190366330
 GameObject:
   m_ObjectHideFlags: 0
@@ -1134,6 +1082,14 @@ PrefabInstance:
     - target: {fileID: 534488410538508029, guid: c391f12a928274acab8576bb6030641d, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 534488410538508029, guid: c391f12a928274acab8576bb6030641d, type: 3}
+      propertyPath: been_to_meele_anim
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 534488410538508029, guid: c391f12a928274acab8576bb6030641d, type: 3}
+      propertyPath: deaccelerationSpeed
+      value: 100000
       objectReference: {fileID: 0}
     - target: {fileID: 2684988887278243463, guid: c391f12a928274acab8576bb6030641d, type: 3}
       propertyPath: m_Name
@@ -1200,6 +1156,75 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c391f12a928274acab8576bb6030641d, type: 3}
+--- !u!1001 &4837008493689284396
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 264633826}
+    m_Modifications:
+    - target: {fileID: 1961486441866887434, guid: 7911900928914b246b068c4a32818092, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1961486441866887434, guid: 7911900928914b246b068c4a32818092, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1961486441866887434, guid: 7911900928914b246b068c4a32818092, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1961486441866887434, guid: 7911900928914b246b068c4a32818092, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1961486441866887434, guid: 7911900928914b246b068c4a32818092, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1961486441866887434, guid: 7911900928914b246b068c4a32818092, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1961486441866887434, guid: 7911900928914b246b068c4a32818092, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1961486441866887434, guid: 7911900928914b246b068c4a32818092, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1961486441866887434, guid: 7911900928914b246b068c4a32818092, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1961486441866887434, guid: 7911900928914b246b068c4a32818092, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6222876212190244805, guid: 7911900928914b246b068c4a32818092, type: 3}
+      propertyPath: m_Name
+      value: EnemySpawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 8184609030803285692, guid: 7911900928914b246b068c4a32818092, type: 3}
+      propertyPath: spawnLimit
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8184609030803285692, guid: 7911900928914b246b068c4a32818092, type: 3}
+      propertyPath: spawnInterval
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 8184609030803285692, guid: 7911900928914b246b068c4a32818092, type: 3}
+      propertyPath: spawnUpperLimit
+      value: 10000
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7911900928914b246b068c4a32818092, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

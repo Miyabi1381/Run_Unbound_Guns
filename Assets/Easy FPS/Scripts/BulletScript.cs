@@ -1,5 +1,6 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class BulletScript : MonoBehaviour {
 
@@ -18,7 +19,16 @@ public class BulletScript : MonoBehaviour {
     public GameObject targetEffect;
     [Tooltip("弾のダメージ")]
     private int damage;
+    [Tooltip("一度にスポーンできる上限")]
+    public int spawnLimit;
+    [Tooltip("現在スポーンしている数")]
+    [HideInInspector] public int currentSpawnCount;
 
+    // 弾痕
+    [Tooltip("弾痕のエフェクト")]
+    private static Queue<GameObject> decalMarks = new Queue<GameObject>();
+    [Tooltip("弾痕エフェクトの表示上限")]
+    public static int maxDecalMarks = 5;
 
     public void Initialize(int damageVal)
     {
@@ -45,8 +55,16 @@ public class BulletScript : MonoBehaviour {
             {
                 if (hit.transform.tag == "LevelPart")
                 {
-                    Instantiate(decalHitWall, hit.point + hit.normal * floatInfrontOfWall, Quaternion.LookRotation(hit.normal));
-                    Destroy(gameObject);
+                    // 弾痕を生成
+                    GameObject mark = Instantiate(decalHitWall, hit.point + hit.normal * floatInfrontOfWall, Quaternion.LookRotation(hit.normal));
+                    decalMarks.Enqueue(mark);
+
+                    // 上限を超えたら古い弾痕を即削除
+                    if (decalMarks.Count > maxDecalMarks)
+                    {
+                        Destroy(decalMarks.Dequeue());
+                    }
+
                 }
 
                 if (hit.transform.tag == "Enemy")
@@ -55,6 +73,8 @@ public class BulletScript : MonoBehaviour {
                     {
                         hpScript.TakeDamage(damage);
                     }
+                    Instantiate(bloodEffect, hit.point, Quaternion.LookRotation(hit.normal));
+                    Destroy(gameObject);
 
                 }
 

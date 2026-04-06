@@ -27,7 +27,7 @@ public class HPScript : MonoBehaviour
         // 敵タグがついたオブジェクトの場合
         if (gameObject.CompareTag("Enemy"))
         {
-            HP = 200;
+            HP = 100;
         }
     }
 

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class ModeMenuState : TitleStateBase
+public class StageMenuState : TitleStateBase
 {
     // タイトルマネージャー
     MenuSelector menuSelector = new MenuSelector();
@@ -10,16 +10,16 @@ public class ModeMenuState : TitleStateBase
     public override void Enter(TitleManager manager)
     {
         titleManager = manager;
-        titleManager.modeUI.SetActive(true);
+        titleManager.stageMenuUI.SetActive(true);
 
-        menuSelector.Init(titleManager.modeUI);
+        menuSelector.Init(titleManager.stageMenuUI);
     }
 
 
     // シーンステータスから離脱
     public override void Exit()
     {
-        titleManager.modeUI.SetActive(false);
+        titleManager.stageMenuUI.SetActive(false);
     }
 
 
@@ -51,26 +51,24 @@ public class ModeMenuState : TitleStateBase
         // 分岐
         switch (index)
         {
-            case 0:
-                Debug.Log("チュートリアルモードへ移行");
+            case 0: // DesertStage
+                titleManager.modeActions[index].Invoke();
                 break;
 
-            case 1:
-                Debug.Log("ソロモードへ移行");
-                // ToDo: ソロモードを選択したことを何かしらでステージに通達する
-                titleManager.ChangeState(new StageMenuState());
+            case 1: // JungleStage
+                titleManager.modeActions[index].Invoke();
                 break;
 
-            case 2:
-                Debug.Log("マルチモードへ移行");
+            case 2: // MoonStage
+                titleManager.modeActions[index].Invoke();
                 break;
         }
 
     }
 
-
     // 更新処理
-    public override  void Update()
+    public override void Update()
     {
     }
+
 }

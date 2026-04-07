@@ -84,6 +84,7 @@ public class EnemySpawner : MonoBehaviour
             // スポーン上限に達したならクリア表示をする
             if (killCount >= spawnUpperLimit)
             {
+                // ToDo: GameManagerにクリア通達を送る
                 clearTxt.SetActive(true);
             }
 

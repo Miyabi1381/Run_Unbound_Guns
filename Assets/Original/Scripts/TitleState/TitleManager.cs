@@ -13,7 +13,9 @@ public class TitleManager : MonoBehaviour
     Stack<TitleStateBase> stateStack = new Stack<TitleStateBase>();
 
     // シーンリファレンス
-    public SceneReference soloGameScene;
+    public SceneReference DesertStageScene;
+    public SceneReference JungleStageScene;
+    public SceneReference MoonStageScene;
 
     // ラムダ式シーン切り替え
     public Action[] modeActions;
@@ -25,6 +27,8 @@ public class TitleManager : MonoBehaviour
     public GameObject mainMenuUI;
     [Tooltip("モード選択UI")]
     public GameObject modeUI;
+    [Tooltip("ステージ(今後難易度分けする予定)選択UI")]
+    public GameObject stageMenuUI;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -33,15 +37,16 @@ public class TitleManager : MonoBehaviour
         // Action配列を生成
         modeActions = new Action[]
             {
-                () => GameManager.instance.LoadScene(soloGameScene),
-                () => GameManager.instance.LoadScene(soloGameScene),
-                () => GameManager.instance.LoadScene(soloGameScene)
+                () => GameManager.instance.LoadScene(DesertStageScene),
+                () => GameManager.instance.LoadScene(JungleStageScene),
+                () => GameManager.instance.LoadScene(MoonStageScene)
             };
 
         // 初期状態(全て非表示)
         pressSpaceKeyUI.SetActive(false);
         mainMenuUI.SetActive(false);
         modeUI.SetActive(false);
+        stageMenuUI.SetActive(false);
 
         // シーンステータスをPress Space Keyにセット
         ChangeState(new PressSpaceKeyState());

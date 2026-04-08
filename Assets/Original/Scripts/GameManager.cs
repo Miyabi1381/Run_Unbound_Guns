@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
         // インスタンスがなければ明示的削除
-        else
+        else if(instance != this)
         {
             Destroy(gameObject);
         }

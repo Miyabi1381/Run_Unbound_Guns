@@ -1,5 +1,4 @@
 ﻿using System;
-using UnityEditor;
 using UnityEngine;
 using TMPro;
 
@@ -28,6 +27,10 @@ public class EnemySpawner : MonoBehaviour
     public float spawnInterval = 1;
     [Tooltip("スポーン間隔を測るタイマー")]
     [HideInInspector] public float timer;
+    [Tooltip("クリアしたかどうか、またその後のアクション通知")]
+    [HideInInspector] public event Action onAllEnemiesKilled;
+    [Tooltip("クリア判定のフラグ")]
+    [HideInInspector] private bool isClear;
 
     // スポナーの範囲
     [Tooltip("スポーンできる最短距離")]
@@ -48,8 +51,6 @@ public class EnemySpawner : MonoBehaviour
     GameObject enemyTxt;
     [Tooltip("UI（ウェーブ数）のテキストオブジェクト")]
     GameObject waveTxt;
-    [Tooltip("GameClearのテキストオブジェクト")]
-    GameObject clearTxt;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -57,13 +58,14 @@ public class EnemySpawner : MonoBehaviour
         // プレイヤーのキャッシュを一度だけ取得
         player = PlayerMovementScript.instance.transform;
 
+        // フラグを初期化
+        isClear = false;
+
         // 変数とテキストを結び付けてクリア以外画面に表示する+テキストを更新
         enemyTxt = GameObject.Find("EnemyCounts");
         waveTxt  = GameObject.Find("WaveCounts");
-        clearTxt = GameObject.Find("GameClear");
         enemyTxt.SetActive(true);
         waveTxt.SetActive(true);
-        clearTxt.SetActive(false);
         UIUpdate();
 
         // 敵をスポーンさせる
@@ -82,10 +84,13 @@ public class EnemySpawner : MonoBehaviour
             timer = 0;
 
             // スポーン上限に達したならクリア表示をする
-            if (killCount >= spawnUpperLimit)
+            if (!isClear && killCount >= spawnUpperLimit)
             {
-                // ToDo: GameManagerにクリア通達を送る
-                clearTxt.SetActive(true);
+                isClear = true;
+
+                Debug.Log("クリア通知を送信した");
+                // GameSceneManagerにクリア通達を送る
+                onAllEnemiesKilled?.Invoke();
             }
 
             // スポーン上限に満たしていないならスポーンさせる

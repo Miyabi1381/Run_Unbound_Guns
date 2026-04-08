@@ -1036,6 +1036,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1961486441866887434, guid: 7911900928914b246b068c4a32818092, type: 3}
   m_PrefabInstance: {fileID: 4837008493689284396}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1056252184 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8184609030803285692, guid: 7911900928914b246b068c4a32818092, type: 3}
+  m_PrefabInstance: {fileID: 4837008493689284396}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6965b4240fa4ee41b4c7f706019aab7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1402625429
 GameObject:
   m_ObjectHideFlags: 0
@@ -1065,6 +1076,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06075948a558a2041bd13afa829ae2ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TitleScene: {fileID: 11400000, guid: 26adcfaa387835044bc454cce7783f22, type: 2}
+  eSpawner: {fileID: 1056252184}
+  coroutineTime: 1
 --- !u!4 &1402625431
 Transform:
   m_ObjectHideFlags: 0
@@ -1223,7 +1237,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8184609030803285692, guid: 7911900928914b246b068c4a32818092, type: 3}
       propertyPath: spawnLimit
-      value: 1000
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8184609030803285692, guid: 7911900928914b246b068c4a32818092, type: 3}
       propertyPath: spawnInterval
@@ -1231,7 +1245,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8184609030803285692, guid: 7911900928914b246b068c4a32818092, type: 3}
       propertyPath: spawnUpperLimit
-      value: 10000
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

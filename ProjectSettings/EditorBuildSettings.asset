@@ -5,12 +5,18 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Original/Scenes/Stage(GameScene)/MoonStage.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Original/Scenes/TitleScene.unity
+    guid: 2e90ce2fcf54d114bab8f0dfe6af1857
   - enabled: 1
     path: Assets/Original/Scenes/Stage(GameScene)/DesertStage.unity
     guid: 98c8433f177c408419fabb3e7d26902e
+  - enabled: 1
+    path: Assets/Original/Scenes/Stage(GameScene)/JungleStage.unity
+    guid: ee604e2fb6fbffa4097bafa296db1ed9
+  - enabled: 1
+    path: Assets/Original/Scenes/Stage(GameScene)/MoonStage.unity
+    guid: 99c9720ab356a0642a771bea13969a05
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 7fb6c1c790fa04865b379a6e8ccd7e9c, type: 3}
   m_UseUCBPForAssetBundles: 0

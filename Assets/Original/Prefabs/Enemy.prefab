@@ -124,7 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71190a209b180754ca4beea8d5d72f69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1.5
+  speed: 0.5
   nearStopDistance: 1.5
   farStopDistance: 30
   fightInterval: 3

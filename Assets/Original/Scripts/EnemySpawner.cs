@@ -14,23 +14,40 @@ public class EnemySpawner : MonoBehaviour
 
     // スポナーのカウント
     [Tooltip("ステージクリア条件である1ステージのスポーン上限")]
-    public int spawnUpperLimit;
+    private int spawnUpperLimit;
     [Tooltip("一度にスポーンできる上限")]
-    public int spawnLimit;
-    [Tooltip("これまでにスポーンした総数")]
-    [HideInInspector] public int spawnCount;
+    [SerializeField] private int spawnLimit;
+    [Tooltip("これまでにスポーンした総数")]  // カウントのタイミングが違うので以下2種を用意
+    private int spawnCount;
     [Tooltip("これまでにキルした総数")]
-    [HideInInspector] public int killCount;
+    private int killCount;
     [Tooltip("現在スポーンしている数")]
-    [HideInInspector] public int currentSpawnCount;
+    private int currentSpawnCount;
     [Tooltip("スポーンする間隔")]
-    public float spawnInterval = 1;
+    private float spawnInterval = 1;
     [Tooltip("スポーン間隔を測るタイマー")]
-    [HideInInspector] public float timer;
-    [Tooltip("クリアしたかどうか、またその後のアクション通知")]
-    [HideInInspector] public event Action onAllEnemiesKilled;
-    [Tooltip("クリア判定のフラグ")]
-    [HideInInspector] private bool isClear;
+    private float spawnTimer;
+
+    // ウェーブ
+    [Tooltip("ウェーブごとの出現上限")]
+    [SerializeField] private int waveSpawnUpperLimit;
+    [Tooltip("ウェーブごとの出現カウント")]
+    private int waveSpawnCount;
+    [Tooltip("ウェーブのカウンター")]
+    private int waveCounter;
+    [Tooltip("ウェーブ内でキルした数")]
+    private int wavekillCount;
+    [Tooltip("ウェーブ上限")]
+    [SerializeField] private int waveUpperCounter;
+    [Tooltip("ウェーブごとに追加する敵の数を指定")]
+    [SerializeField] private int enemyIncreasePerWave;
+    [Tooltip("次のウェーブの開始時間")]
+    [SerializeField] private float startToNextWaveTime;
+    [Tooltip("次のウェーブまでの待機時間")]
+    private float nextWaveTimer;
+    [Tooltip("ウェーブのレベルを跳ね上げるタイミング")]
+    [SerializeField] private int levelUpWave;
+
 
     // スポナーの範囲
     [Tooltip("スポーンできる最短距離")]
@@ -46,6 +63,15 @@ public class EnemySpawner : MonoBehaviour
     [Tooltip("ステージ上でスポーンすることのできる範囲(最大Z)")]
     public float stageMaxZ =  50;
 
+    // クリア判定
+    [Tooltip("ゲームクリアしたかどうか、またその後のアクション通知")]
+    [HideInInspector] public event Action onAllEnemiesKilled;
+    [Tooltip("ゲームクリア判定のフラグ")]
+    [HideInInspector] private bool isGameClear;
+    [Tooltip("ウェーブクリア判定のフラグ")]
+    [HideInInspector] private bool isWaveClear;
+
+
     // UI
     [Tooltip("UI（敵の数）のテキストオブジェクト")]
     GameObject enemyTxt;
@@ -59,13 +85,18 @@ public class EnemySpawner : MonoBehaviour
         player = PlayerMovementScript.instance.transform;
 
         // フラグを初期化
-        isClear = false;
+        isGameClear = false;
+        isWaveClear = false;
 
-        // 変数とテキストを結び付けてクリア以外画面に表示する+テキストを更新
+        // 変数とテキストを結び付けてクリア以外画面に表示する
         enemyTxt = GameObject.Find("EnemyCounts");
         waveTxt  = GameObject.Find("WaveCounts");
         enemyTxt.SetActive(true);
         waveTxt.SetActive(true);
+
+        // 各数値を初期化してテキストを更新
+        spawnUpperLimit = waveSpawnUpperLimit;  // ウェーブのリミットを全体の上限値に代入
+        waveCounter++;                          // ウェーブカウンターを1にセット
         UIUpdate();
 
         // 敵をスポーンさせる
@@ -77,16 +108,18 @@ public class EnemySpawner : MonoBehaviour
     void Update()
     {
         // タイマーがスポーン間隔を満たしたらスポーンさせる
-        timer += Time.deltaTime;
-        if (timer >= spawnInterval)
+        spawnTimer += Time.deltaTime;
+        if (spawnTimer >= spawnInterval)
         {
             // タイマーをリセットする
-            timer = 0;
+            spawnTimer -= spawnInterval;
 
-            // スポーン上限に達したならクリア表示をする
-            if (!isClear && killCount >= spawnUpperLimit)
+            // ウェーブ数が指定数値を満たし、スポーン上限に達したならクリア表示をする
+            if ((!isGameClear)                          // 既にクリアしたか
+                && (waveCounter >= waveUpperCounter)    // 最終ウェーブに到達したか
+                && (killCount >= spawnUpperLimit))      // キルカウントがスポーン上限に達したか
             {
-                isClear = true;
+                isGameClear = true;
 
                 Debug.Log("クリア通知を送信した");
                 // GameSceneManagerにクリア通達を送る
@@ -94,13 +127,72 @@ public class EnemySpawner : MonoBehaviour
             }
 
             // スポーン上限に満たしていないならスポーンさせる
-            if ((spawnCount < spawnUpperLimit)
-                && (currentSpawnCount < spawnLimit))
+            if ((spawnCount < spawnUpperLimit)              // スポーンカウントがスポーン上限に達したか
+                && (currentSpawnCount < spawnLimit)         // 現在のスポーンカウントが同時スポーン上限に達したか
+                && (waveSpawnCount < waveSpawnUpperLimit))  // ウェーブごとのスポーン上限に到達したか
             {
                 InstantiateEnemy();
             }
 
         }
+            // ウェーブ処理をする
+            Wave();
+    }
+
+
+    // ウェーブ処理
+    void Wave()
+    {
+        // 敵を倒し終わった時に、ウェーブが最終値に到達していなければウェーブクリアとする。
+        // ウェーブをクリアしたときに、上がり幅分敵を追加して次のウェーブに移行する
+        if (wavekillCount >= waveSpawnUpperLimit)
+        {
+            // ウェーブクリアフラグチェック
+            if (!isWaveClear)
+            {
+                // ウェーブクリアの表示をする
+                Debug.Log("ウェーブ " + waveCounter + " をクリア！次に備えましょう！");
+                isWaveClear = true;
+
+                // クリアウェーブが最後なら抜ける
+                if (waveCounter == waveUpperCounter) return;
+            }
+
+            // ウェーブ間の待機時間が過ぎたら次のウェーブに移行する
+            nextWaveTimer += Time.deltaTime;
+            if (nextWaveTimer >= startToNextWaveTime)
+            {
+                // 前ウェーブの情報をリセット
+                waveSpawnCount = 0;                     // ウェーブごとのスポーンカウンター
+                isWaveClear = false;                    // ウェーブのクリア判定
+                wavekillCount = 0;                      // キルカウントのリセット
+                nextWaveTimer -= startToNextWaveTime;   // ウェーブ間の待機タイマー
+                
+                // ウェーブを加算
+                waveCounter++;
+
+                // ウェーブごとの敵数の加算率を計算し、次のウェーブの値に足す
+                waveSpawnUpperLimit += CalculateWavesAddEnemyCount();
+
+                // ゲーム全体のクリア条件値も加算する
+                spawnUpperLimit += waveSpawnUpperLimit;
+
+                // UIを更新
+                UIUpdate();
+
+                Debug.Log("ウェーブ " + waveCounter + " が開始しました！");
+                
+            }
+
+        }
+    }
+
+
+    // ウェーブの加算値を計算する関数
+    public int CalculateWavesAddEnemyCount()
+    {
+        // ウェーブ数で徐々に敵を増加
+        return waveCounter * enemyIncreasePerWave + (waveCounter / levelUpWave);
     }
 
 
@@ -123,6 +215,7 @@ public class EnemySpawner : MonoBehaviour
             {
                 currentSpawnCount--;
                 killCount++;
+                wavekillCount++;
                 UIUpdate();
             };
 
@@ -131,6 +224,7 @@ public class EnemySpawner : MonoBehaviour
         // スポーンカウントを足す
         currentSpawnCount++;
         spawnCount++;
+        waveSpawnCount++;
     }
 
 
@@ -163,17 +257,11 @@ public class EnemySpawner : MonoBehaviour
     }
 
 
-    // スポーンできる範囲かどうかを判断する(ステージ上かどうか)
-    public bool IsSpawn()
-    {
-        return true;
-    }
-
-
     // UIを更新する
     private void UIUpdate()
     {
-        enemyTxt.GetComponent<TextMeshProUGUI>().text = (spawnUpperLimit - killCount) + "/" + spawnUpperLimit;
-        waveTxt.GetComponent<TextMeshProUGUI>().text  = "Wave " + "1";
+        // ウェーブごとのスポーン上限と、現在のウェーブを表示
+        enemyTxt.GetComponent<TextMeshProUGUI>().text = (waveSpawnUpperLimit - wavekillCount) + "/" + waveSpawnUpperLimit;
+        waveTxt.GetComponent<TextMeshProUGUI>().text  = "Wave " + waveCounter;
     }
 }

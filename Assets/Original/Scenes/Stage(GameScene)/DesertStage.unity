@@ -1237,7 +1237,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8184609030803285692, guid: 7911900928914b246b068c4a32818092, type: 3}
       propertyPath: spawnLimit
-      value: 1
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8184609030803285692, guid: 7911900928914b246b068c4a32818092, type: 3}
+      propertyPath: levelUpWave
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8184609030803285692, guid: 7911900928914b246b068c4a32818092, type: 3}
       propertyPath: spawnInterval
@@ -1245,7 +1249,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8184609030803285692, guid: 7911900928914b246b068c4a32818092, type: 3}
       propertyPath: spawnUpperLimit
-      value: 1
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8184609030803285692, guid: 7911900928914b246b068c4a32818092, type: 3}
+      propertyPath: waveUpperCounter
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8184609030803285692, guid: 7911900928914b246b068c4a32818092, type: 3}
+      propertyPath: nearSpawnDistance
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8184609030803285692, guid: 7911900928914b246b068c4a32818092, type: 3}
+      propertyPath: startToNextWaveTime
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8184609030803285692, guid: 7911900928914b246b068c4a32818092, type: 3}
+      propertyPath: waveSpawnUpperLimit
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8184609030803285692, guid: 7911900928914b246b068c4a32818092, type: 3}
+      propertyPath: enemyIncreasePerWave
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

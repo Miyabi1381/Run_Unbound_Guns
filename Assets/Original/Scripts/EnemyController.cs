@@ -6,10 +6,6 @@ public class EnemyController : MonoBehaviour
     [Tooltip("プレイヤーの情報")]
     Transform player;
 
-    // HP
-    [Tooltip("HPスクリプト")]
-    HPScript hp;
-
     // 座標
     [Tooltip("Y軸(高さ)を固定するための変数")]
     [HideInInspector] private float fixedY;
@@ -126,10 +122,14 @@ public class EnemyController : MonoBehaviour
         // 対象にプレイヤータグが付いていたら攻撃を通す
         if (other.CompareTag("Player"))
         {
-            Debug.Log("あたったよ！5ダメな！！");
+            // ヒットフラグをオンにする
             hasHit = true;
 
-            hp.TakeDamage(damage);
+            if(other.TryGetComponent<HPScript>(out HPScript hpScript))
+            {
+                hpScript.TakeDamage(damage);
+                Debug.Log("あたったよ！5ダメな！！");
+            }
         }
 
     }

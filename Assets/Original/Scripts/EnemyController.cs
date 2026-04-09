@@ -121,11 +121,11 @@ public class EnemyController : MonoBehaviour
             // ヒットフラグをオンにする
             hasHit = true;
 
+            // コンポーネントが確認されたらHPの減少処理を行う
             if(other.TryGetComponent<HPScript>(out HPScript hpScript))
             {
                 // HPの減少処理
                 hpScript.TakeDamage(damage);
-                Debug.Log("あたったよ！5ダメな！！");
             }
         }
 

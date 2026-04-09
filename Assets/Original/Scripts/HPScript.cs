@@ -11,6 +11,9 @@ public class HPScript : MonoBehaviour
     [HideInInspector] public int maxHP;
     [Tooltip("死んだときに呼び出す関数を入れる変数（ラムダ式）")]
     public Action onDeath;
+    [Tooltip("ゲームオーバーかどうか、またその後のアクション通知")]
+    [HideInInspector] public event Action onDeadPlayer;
+
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -62,10 +65,21 @@ public class HPScript : MonoBehaviour
         // DebugTEXT
         Debug.Log("標的は " + damage + "ダメージ食らった！");
 
-        // 対象のHPが0未満ならオブジェクトを消す&死亡通知する
+        // 対象のHPが0未満ならオブジェクトを消す、または死亡通知する
         if (HP <= 0)
         {
-            Dead();
+            // 敵の場合オブジェクトを消す
+            if (gameObject.CompareTag("Enemy"))
+            {
+                Dead();
+            }
+
+            // プレイヤーの場合死亡通知を出す
+            if (gameObject.CompareTag("Player"))
+            {
+                PlayerDead();
+            }
+
         }
 
     }
@@ -77,7 +91,14 @@ public class HPScript : MonoBehaviour
         onDeath?.Invoke();
         Debug.Log("標的は破壊された！");
         Destroy(gameObject);
+    }
 
+
+    // プレイヤーの死亡処理
+    public void PlayerDead()
+    {
+        // ToDo: プレイヤーが死んだときの処理。今後変更あり（resultへ）
+        onDeadPlayer?.Invoke();
     }
 
 

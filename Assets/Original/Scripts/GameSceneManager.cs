@@ -11,16 +11,22 @@ public class GameSceneManager : MonoBehaviour
     public Action onClear;
     [Tooltip("敵スポナー")]
     [SerializeField] EnemySpawner eSpawner;
+    [Tooltip("HPスクリプト")]
+    [SerializeField] HPScript hpScript;
     [Tooltip("GameClearのテキストオブジェクト")]
     GameObject clearTxt;
+    [Tooltip("GameOverのテキストオブジェクト")]
+    GameObject gameoverTxt;
     [Tooltip("コルーチンタイム")]
     [SerializeField] private float coroutineTime;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
-        clearTxt = GameObject.Find("GameClear");
+        clearTxt    = GameObject.Find("GameClear");
+        gameoverTxt = GameObject.Find("GameOver");
         clearTxt.SetActive(false);
+        gameoverTxt.SetActive(false);
     }
 
 
@@ -30,6 +36,8 @@ public class GameSceneManager : MonoBehaviour
         Debug.Log("有効化");
         // クリア処理のメソッドを追加
         eSpawner.onAllEnemiesKilled += HandleClear;
+        // ゲームオーバー処理のメソッドを追加
+        hpScript.onDeadPlayer += HandleGameover;
     }
 
 
@@ -39,6 +47,8 @@ public class GameSceneManager : MonoBehaviour
         Debug.Log("無効化");
         // クリア処理のメソッドを削除
         eSpawner.onAllEnemiesKilled -= HandleClear;
+        // ゲームオーバー処理のメソッドを削除
+        hpScript.onDeadPlayer -= HandleGameover;
     }
 
 
@@ -51,6 +61,19 @@ public class GameSceneManager : MonoBehaviour
         clearTxt.SetActive(true);
         // シーン切り替え処理
         StartCoroutine(ClearSquence());
+    }
+
+
+    // ゲームオーバー処理
+    void HandleGameover()
+    {
+        Debug.Log(this);
+
+        // クリアテキストを表示
+        gameoverTxt.SetActive(true);
+        // シーン切り替え処理
+        StartCoroutine(ClearSquence());
+
     }
 
 

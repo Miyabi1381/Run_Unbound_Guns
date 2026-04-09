@@ -1523,7 +1523,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8184609030803285692, guid: 7911900928914b246b068c4a32818092, type: 3}
       propertyPath: spawnLimit
-      value: 5
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 8184609030803285692, guid: 7911900928914b246b068c4a32818092, type: 3}
       propertyPath: levelUpWave

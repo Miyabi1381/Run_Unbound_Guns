@@ -21,6 +21,7 @@ public class HPScript : MonoBehaviour
         {
             HP = 200;
             maxHP = HP;
+            currentHP = HP;
         }
 
         // ターゲットタグがついたオブジェクトの場合
@@ -28,6 +29,7 @@ public class HPScript : MonoBehaviour
         {
             HP = 1;
             maxHP = HP;
+            currentHP = HP;
         }
 
         // 敵タグがついたオブジェクトの場合
@@ -35,6 +37,7 @@ public class HPScript : MonoBehaviour
         {
             HP = 50;
             maxHP = HP;
+            currentHP = HP;
         }
 
         // プレイヤータグがついたオブジェクトの場合
@@ -42,6 +45,7 @@ public class HPScript : MonoBehaviour
         {
             HP = 1000;
             maxHP = HP;
+            currentHP = HP;
         }
 
     }

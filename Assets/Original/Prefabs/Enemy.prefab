@@ -132,7 +132,6 @@ MonoBehaviour:
   timer: 0
   damage: 5
   attackCol: {fileID: 5491918506557774993}
-  intervalCount: 0
 --- !u!114 &3581237500642885184
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,6 +144,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ea9fa9b3d9a4a6459e954bfbd3bd78d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentHP: 0
+  maxHP: 0
 --- !u!135 &5491918506557774993
 SphereCollider:
   m_ObjectHideFlags: 0

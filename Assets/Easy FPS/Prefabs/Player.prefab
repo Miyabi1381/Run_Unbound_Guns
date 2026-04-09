@@ -523,6 +523,7 @@ GameObject:
   - component: {fileID: 534488410538508029}
   - component: {fileID: 8471571328327727088}
   - component: {fileID: 8246698095014408860}
+  - component: {fileID: 8271085187602726293}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -539,7 +540,7 @@ Transform:
   m_GameObject: {fileID: 2684988887278243463}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 18.50965, y: 7.03, z: -23.252335}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -665,9 +666,10 @@ MonoBehaviour:
   currentSpeed: 0
   cameraMain: {fileID: 0}
   jumpForce: 15000
+  isJumping: 0
   cameraPosition: {x: 0, y: 0, z: 0}
   maxSpeed: 5
-  deaccelerationSpeed: 0
+  deaccelerationSpeed: 100000
   accelerationSpeed: 100000
   grounded: 0
   bulletSpawn: {fileID: 0}
@@ -706,8 +708,8 @@ MonoBehaviour:
   currentYRotation: 0
   wantedCameraXRotation: 0
   currentCameraXRotation: 0
-  topAngleView: 60
-  bottomAngleView: -45
+  topAngleView: 90
+  bottomAngleView: -90
   weapon: {fileID: 0}
   showFps: 1
 --- !u!114 &8246698095014408860
@@ -735,6 +737,20 @@ MonoBehaviour:
   beginPosition: {x: 40, y: 4}
   size: {x: 10, y: 12}
   weaponChanging: {fileID: 8943424037792174634}
+--- !u!114 &8271085187602726293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2684988887278243463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ea9fa9b3d9a4a6459e954bfbd3bd78d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHP: 0
+  maxHP: 0
 --- !u!1 &4641905851101251378
 GameObject:
   m_ObjectHideFlags: 0

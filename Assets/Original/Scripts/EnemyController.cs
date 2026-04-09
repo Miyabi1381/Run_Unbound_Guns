@@ -30,10 +30,6 @@ public class EnemyController : MonoBehaviour
     [Tooltip("攻撃ヒットフラグ")]
     private bool hasHit;
 
-    [Tooltip("デバッグ用、攻撃インターバルの確認用カウンター")]
-    [HideInInspector] public int intervalCount;
-
-
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -83,7 +79,6 @@ public class EnemyController : MonoBehaviour
             {
                 // 値をリセット
                 timer = 0;          // インターバルタイマー
-                intervalCount++;    // Debug: インターバル確認用カウント
                 hasHit = false;     // 攻撃ヒットフラグ
 
                 // 攻撃動作
@@ -98,7 +93,7 @@ public class EnemyController : MonoBehaviour
     // 攻撃処理(モーション/エフェクト)
     void Attack()
     {
-        // 攻撃当たり判定ON
+        // 攻撃時にのみONの当たり判定をON
         attackCol.enabled = true;
 
         // 指定秒後
@@ -109,6 +104,7 @@ public class EnemyController : MonoBehaviour
     // 攻撃終了処理
     void EndAttack()
     {
+        // 攻撃時にのみONの当たり判定をOFF
         attackCol.enabled = false;
     }
 
@@ -127,6 +123,7 @@ public class EnemyController : MonoBehaviour
 
             if(other.TryGetComponent<HPScript>(out HPScript hpScript))
             {
+                // HPの減少処理
                 hpScript.TakeDamage(damage);
                 Debug.Log("あたったよ！5ダメな！！");
             }

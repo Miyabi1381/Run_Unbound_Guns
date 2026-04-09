@@ -59,8 +59,11 @@ public class MainMenuState : TitleStateBase
                 Debug.Log("設定");
                 break;
 
-            case 2:
-                Debug.Log("終了");
+            case 2: // ゲーム終了
+                Application.Quit();
+#if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;
+#endif
                 break;
         }
 

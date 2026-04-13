@@ -17,17 +17,34 @@ public class MenuSelector
         // 親子関係の子の数を数えて、その分インデックスの数に設定する
         int count = parent.transform.childCount;
         choices = new GameObject[count];
-        defaultPos = new Vector3[count];
 
-        for (int i = 0; i < count; i++)
+        if (defaultPos == null || defaultPos.Length != count)
         {
-            // 選択肢を取得
-            choices[i] = parent.transform.GetChild(i).gameObject;
+            defaultPos = new Vector3[count];
+    
+            for (int i = 0; i < count; i++)
+            {
+                // 選択肢を取得
+                choices[i] = parent.transform.GetChild(i).gameObject;
 
-            // 選択肢の元の位置を親基準で保存
-            defaultPos[i] = choices[i].transform.localPosition;
+                // 選択肢の元の位置を親基準で保存
+                defaultPos[i] = choices[i].transform.localPosition;
+            }
+
         }
 
+        else
+        {
+            // 2回目以降のInit時は、まず全員を元の位置に強制的に戻す
+            for (int i = 0; i < count; i++)
+            {
+                choices[i] = parent.transform.GetChild(i).gameObject;
+                choices[i].transform.localPosition = defaultPos[i];
+            }
+        }
+
+        // 初期化
+        ResetPosition();
         index = 0;
         Select();
     }
@@ -52,7 +69,17 @@ public class MenuSelector
             else
                 choices[i].transform.localPosition = defaultPos[i];
         }
-        Debug.Log("選択中：" + choices[index].name);
+    }
+
+
+    // 選択肢の位置情報をリセットする関数
+    void ResetPosition()
+    {
+        for (int i = 0; i < choices.Length; i++)
+        {
+            choices[i].transform.localPosition = defaultPos[i];
+        }
+
     }
 
 

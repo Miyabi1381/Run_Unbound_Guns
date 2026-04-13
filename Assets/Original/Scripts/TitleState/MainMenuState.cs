@@ -3,7 +3,7 @@
 public class MainMenuState : TitleStateBase
 {
     // タイトルマネージャー
-    MenuSelector menuSelector = new MenuSelector();
+    MenuSelector menuSelector;
 
 
     // 渡されたシーンステータスに移行
@@ -11,6 +11,8 @@ public class MainMenuState : TitleStateBase
     {
         titleManager = manager;
         titleManager.mainMenuUI.SetActive(true);
+
+        menuSelector = titleManager.menuSelector;
 
         menuSelector.Init(titleManager.mainMenuUI);
     }
@@ -52,7 +54,7 @@ public class MainMenuState : TitleStateBase
         switch (index)
         {
             case 0:
-                titleManager.ChangeState(new ModeMenuState());
+                titleManager.ChangeState(titleManager.modeMenuState);
                 break;
 
             case 1:

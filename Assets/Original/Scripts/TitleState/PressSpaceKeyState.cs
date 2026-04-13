@@ -22,7 +22,7 @@ public class PressSpaceKeyState : TitleStateBase
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            titleManager.ChangeState(new MainMenuState());
+            titleManager.ChangeState(titleManager.mainMenuState);
         }
     }
 

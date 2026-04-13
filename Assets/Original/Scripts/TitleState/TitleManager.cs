@@ -7,6 +7,15 @@ public class TitleManager : MonoBehaviour
     // 現在のシーンステータス
     TitleStateBase currentState;
 
+    // シーンステータス
+    public PressSpaceKeyState pressSpaceKeyState = new PressSpaceKeyState();
+    public MainMenuState mainMenuState           = new MainMenuState();
+    public ModeMenuState modeMenuState           = new ModeMenuState();
+    public StageMenuState stageMenuState         = new StageMenuState();
+
+    // メニューセレクトシステム
+    public MenuSelector menuSelector = new MenuSelector();
+
     // ステータスの履歴
     Stack<TitleStateBase> stateStack = new Stack<TitleStateBase>();
 
@@ -47,7 +56,7 @@ public class TitleManager : MonoBehaviour
         stageMenuUI.SetActive(false);
 
         // シーンステータスをPress Space Keyにセット
-        ChangeState(new PressSpaceKeyState());
+        ChangeState(pressSpaceKeyState);
     }
 
     // Update is called once per frame

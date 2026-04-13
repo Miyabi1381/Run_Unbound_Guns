@@ -3,7 +3,7 @@
 public class ModeMenuState : TitleStateBase
 {
     // タイトルマネージャー
-    MenuSelector menuSelector = new MenuSelector();
+    MenuSelector menuSelector;
 
 
     // 渡されたシーンステータスに移行
@@ -11,6 +11,8 @@ public class ModeMenuState : TitleStateBase
     {
         titleManager = manager;
         titleManager.modeUI.SetActive(true);
+
+        menuSelector = titleManager.menuSelector;
 
         menuSelector.Init(titleManager.modeUI);
     }
@@ -58,7 +60,7 @@ public class ModeMenuState : TitleStateBase
             case 1:
                 Debug.Log("ソロモードへ移行");
                 // ToDo: ソロモードを選択したことを何かしらでステージに通達する
-                titleManager.ChangeState(new StageMenuState());
+                titleManager.ChangeState(titleManager.stageMenuState);
                 break;
 
             case 2:

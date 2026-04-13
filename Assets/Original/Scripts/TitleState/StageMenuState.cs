@@ -3,7 +3,7 @@
 public class StageMenuState : TitleStateBase
 {
     // タイトルマネージャー
-    MenuSelector menuSelector = new MenuSelector();
+    MenuSelector menuSelector;
 
 
     // 渡されたシーンステータスに移行
@@ -11,6 +11,8 @@ public class StageMenuState : TitleStateBase
     {
         titleManager = manager;
         titleManager.stageMenuUI.SetActive(true);
+
+        menuSelector = titleManager.menuSelector;
 
         menuSelector.Init(titleManager.stageMenuUI);
     }

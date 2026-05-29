@@ -22,6 +22,7 @@ public class PressSpaceKeyState : TitleStateBase
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            AudioManager.instance.PlaySE("Decision SE");
             titleManager.ChangeState(titleManager.mainMenuState);
         }
     }

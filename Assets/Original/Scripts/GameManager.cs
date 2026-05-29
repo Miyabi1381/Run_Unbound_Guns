@@ -22,8 +22,10 @@ public class GameManager : MonoBehaviour
     // 起動時に一番最初に走る処理
     private void Awake()
     {
+        Application.targetFrameRate = 120;
+
         // インスタンスを生成し、シーンを跨いでも消されないように設定
-        if(instance == null)
+        if (instance == null)
         {
             instance = this;
             DontDestroyOnLoad(gameObject);

@@ -46,9 +46,11 @@ public class GameSceneManager : MonoBehaviour
     {
         Debug.Log("無効化");
         // クリア処理のメソッドを削除
-        eSpawner.onAllEnemiesKilled -= HandleClear;
+        if (eSpawner != null)
+            eSpawner.onAllEnemiesKilled -= HandleClear;
         // ゲームオーバー処理のメソッドを削除
-        hpScript.onDeadPlayer -= HandleGameover;
+        if (hpScript != null)
+            hpScript.onDeadPlayer -= HandleGameover;
     }
 
 

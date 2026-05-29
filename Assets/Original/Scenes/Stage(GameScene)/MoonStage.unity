@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TitleScene: {fileID: 11400000, guid: 26adcfaa387835044bc454cce7783f22, type: 2}
-  eSpawner: {fileID: 0}
+  eSpawner: {fileID: 729139840}
   hpScript: {fileID: 1273003306}
   coroutineTime: 5
 --- !u!4 &129880743
@@ -181,7 +181,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: b8c173a9e5a34da4a8baac427a65b668, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -671,6 +671,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05886ef6f9e6e804e81b6c1090ee17f8, type: 3}
+--- !u!114 &729139840 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4644974894931501768, guid: de98d9fa8fb7e034cb874c6c728b0d5e, type: 3}
+  m_PrefabInstance: {fileID: 2000488504}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6965b4240fa4ee41b4c7f706019aab7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &744713659
 GameObject:
   m_ObjectHideFlags: 0

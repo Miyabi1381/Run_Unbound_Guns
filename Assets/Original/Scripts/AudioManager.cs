@@ -21,9 +21,41 @@ public class AudioManager : MonoBehaviour
 
     void Awake()
     {
+        instance = this;
+
         // データをまとめる辞書を生成
         bgmDictionary = new Dictionary<string, AudioClip>();
         seDictionary  = new Dictionary<string, AudioClip>();
+
+        // ゲーム起動時にインスペクターのデータを辞書に自動登録する
+        InitializeDictionaries();
+    }
+
+
+    // ゲーム起動時にインスペクターのデータを辞書に自動登録する
+    void InitializeDictionaries()
+    {
+        // データがある場合、
+        if (bgmDatas != null)
+        { 
+            // データリストを参照して、
+            foreach (AudioData bgmData in bgmDatas)
+            {
+                if (!string.IsNullOrEmpty(bgmData.name) && bgmData.audioClip != null)
+                    bgmDictionary[bgmData.name] = bgmData.audioClip;
+            }
+        }
+
+        // データがある場合、
+        if (seDatas != null)
+        {
+            // データリストを参照して、
+            foreach (AudioData seData in seDatas)
+            {
+                if (!string.IsNullOrEmpty(seData.name) && seData.audioClip != null)
+                    seDictionary[seData.name] = seData.audioClip;
+            }
+        }
     }
 
 

@@ -46,19 +46,16 @@ public class TitleManager : MonoBehaviour
             {
                 () =>
                 {
-                    AudioManager.instance.PlaySE("Decision SE");
                     GameManager.instance.LoadScene(DesertStageScene);
                 },
 
                 () => 
                 {
-                    AudioManager.instance.PlaySE("Decision SE");
                     GameManager.instance.LoadScene(JungleStageScene);
                 },
 
                 () =>
                 {
-                    AudioManager.instance.PlaySE("Decision SE");
                     GameManager.instance.LoadScene(MoonStageScene);
                 }
             };
@@ -71,6 +68,10 @@ public class TitleManager : MonoBehaviour
 
         // シーンステータスをPress Space Keyにセット
         ChangeState(pressSpaceKeyState);
+
+        // ゲーム開始時にタイトルBGMを再生する
+        if (AudioManager.instance != null)
+            AudioManager.instance.PlayBGM("Opening BGM");
     }
 
     // Update is called once per frame

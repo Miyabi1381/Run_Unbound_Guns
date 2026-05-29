@@ -30,17 +30,29 @@ public class MainMenuState : TitleStateBase
     {
         // インデックスのカーソル移動処理
         if (Input.GetKeyDown(KeyCode.UpArrow))  // 上方向
+        {
+            AudioManager.instance.PlaySE("Cursor SE");
             menuSelector.Move(-1);
+        }
         if (Input.GetKeyDown(KeyCode.DownArrow))// 下方向
+        {
+            AudioManager.instance.PlaySE("Cursor SE");
             menuSelector.Move(1);
+        }
 
         // 決定キーの処理
         if (Input.GetKeyDown(KeyCode.Space))
+        {
+            AudioManager.instance.PlaySE("Decision SE");
             Decide();
+        }
 
         // 戻るキーの処理
         if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            AudioManager.instance.PlaySE("Cancel SE");
             titleManager.BackState();
+        }
     }
 
 

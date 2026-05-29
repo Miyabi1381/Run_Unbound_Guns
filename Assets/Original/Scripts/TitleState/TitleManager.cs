@@ -44,9 +44,23 @@ public class TitleManager : MonoBehaviour
         // Action配列を生成
         modeActions = new Action[]
             {
-                () => GameManager.instance.LoadScene(DesertStageScene),
-                () => GameManager.instance.LoadScene(JungleStageScene),
-                () => GameManager.instance.LoadScene(MoonStageScene)
+                () =>
+                {
+                    AudioManager.instance.PlaySE("Decision SE");
+                    GameManager.instance.LoadScene(DesertStageScene);
+                },
+
+                () => 
+                {
+                    AudioManager.instance.PlaySE("Decision SE");
+                    GameManager.instance.LoadScene(JungleStageScene);
+                },
+
+                () =>
+                {
+                    AudioManager.instance.PlaySE("Decision SE");
+                    GameManager.instance.LoadScene(MoonStageScene);
+                }
             };
 
         // 初期状態(全て非表示)

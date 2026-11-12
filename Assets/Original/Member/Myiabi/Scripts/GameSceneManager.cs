@@ -97,7 +97,8 @@ public class GameSceneManager : MonoBehaviour
         {
             Debug.LogError("TitleScene 変数がインスペクターで設定されていません！");
         }
-
+        // カーソルの固定を解除する
+        Cursor.lockState = CursorLockMode.Confined;
         // 指定秒後、シーンをロードする
         GameManager.instance.LoadScene(TitleScene);
     }

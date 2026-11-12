@@ -30,6 +30,9 @@ public class EnemyController : MonoBehaviour
     [Tooltip("攻撃ヒットフラグ")]
     private bool hasHit;
 
+    // 敵AI(アニメーション)
+    [Tooltip("アニメーター")]
+    private Animator animator;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -40,6 +43,8 @@ public class EnemyController : MonoBehaviour
         fixedY = this.transform.position.y;
         // 攻撃ヒットフラグを初期化
         hasHit = false;
+        // アニメーターを取得
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -66,13 +71,24 @@ public class EnemyController : MonoBehaviour
             Vector3 pos = this.transform.position;
             pos += dir.normalized * speed * Time.deltaTime;
             pos.y = fixedY;
-
             this.transform.position = pos;
+
+            // 移動アニメーションの再生速度を設定
+            if (animator != null)
+            {
+                animator.SetFloat("Speed", speed);
+            }
         }
 
-        // プレイヤーとの距離が一定値以内であれば追従せずとどまる（追加要素：攻撃する）
+        // プレイヤーとの距離が一定値以内であれば追従せずとどまる
         else if (dir.sqrMagnitude < nearStopDistance * nearStopDistance)
         {
+            // 移動速度をなくして待機状態にする
+            if (animator != null)
+            {
+                animator.SetFloat("Speed", 0f);
+            }
+
             // インターバル付き攻撃動作
             timer += Time.deltaTime;
             if (timer >= fightInterval)
@@ -84,15 +100,24 @@ public class EnemyController : MonoBehaviour
                 // 攻撃動作
                 Attack();
             }
-
         }
-
+        // 追従範囲外で止まった場合、待機状態にする
+        else if (animator != null)
+        {
+            animator.SetFloat("Speed", 0f);
+        }
     }
 
 
     // 攻撃処理(モーション/エフェクト)
     void Attack()
     {
+        // 攻撃アニメーションを再生
+        if (animator != null)
+        {
+            animator.SetTrigger("Attack");
+        }
+
         // 攻撃時にのみONの当たり判定をON
         attackCol.enabled = true;
 

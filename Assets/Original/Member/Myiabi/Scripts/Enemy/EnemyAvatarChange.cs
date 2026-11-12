@@ -5,6 +5,8 @@
 //
 // Author: Banno Miyabi
 // Date: 2026/11/11
+// 
+// copyright: Copyright(c)2026 BannoMiyabi.
 // ======================================================================================
 using UnityEngine;
 using UnityEngine.SceneManagement;

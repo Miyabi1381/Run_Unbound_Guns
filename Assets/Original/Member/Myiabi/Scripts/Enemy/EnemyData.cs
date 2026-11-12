@@ -5,14 +5,16 @@
 //
 // Author: Banno Miyabi
 // Date: 2026/11/11
+// 
+// copyright: Copyright(c)2026 BannoMiyabi.
 // ======================================================================================
 using UnityEngine;
 using System.Collections.Generic;
 
+// memo: クラスの属性
 [CreateAssetMenu(fileName = "EnemyData", menuName = "Scriptable Objects/EnemyData")]
 public class EnemyData : ScriptableObject
 {
-    // memo: インスペクター上に表示
     // アニメーション群
     [System.Serializable]
     public struct AnimationGroup
@@ -21,7 +23,6 @@ public class EnemyData : ScriptableObject
         public AnimationClip clip;      ///< アニメーションファイル
     }
 
-    // インスペクター上に表示
     // 敵に渡すデータ群
     [System.Serializable]
     public struct EnemySetData

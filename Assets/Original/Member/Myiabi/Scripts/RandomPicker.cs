@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿// ======================================================================================
+// copyright: Copyright(c)2026 BannoMiyabi.
+// ======================================================================================
+using UnityEngine;
 
 public class RandomPicker : MonoBehaviour
 {

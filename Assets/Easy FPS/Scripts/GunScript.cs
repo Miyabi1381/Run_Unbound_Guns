@@ -117,7 +117,7 @@ public class GunScript : MonoBehaviour {
 		 * Changing some values if we are aiming, like sensitity, zoom racion and position of the waepon.
 		 */
 		//if aiming
-		if(Input.GetKey(KeyCode.Mouse1) && !reloading && !meeleAttack){
+		if((Input.GetKey(KeyCode.Mouse1) || Input.GetKeyDown(KeyCode.Joystick1Button4)) && !reloading && !meeleAttack){
 			gunPrecision = gunPrecision_aiming;
 			recoilAmount_x = recoilAmount_x_;
 			recoilAmount_y = recoilAmount_y_;
@@ -161,7 +161,8 @@ public class GunScript : MonoBehaviour {
 	 */
 	void CrossHairExpansionWhenWalking(){
 
-		if(player.GetComponent<Rigidbody>().linearVelocity.magnitude > 1 && Input.GetKey(KeyCode.Mouse0)){//ifnot shooting
+		if(player.GetComponent<Rigidbody>().linearVelocity.magnitude > 1 && (Input.GetKey(KeyCode.Mouse0)) || Input.GetKeyDown(KeyCode.Joystick1Button5))
+        {//ifnot shooting
 
 			expandValues_crosshair += new Vector2(20, 40) * Time.deltaTime;
 			if(player.GetComponent<PlayerMovementScript>().maxSpeed < runningSpeed){ //not running
@@ -187,7 +188,7 @@ public class GunScript : MonoBehaviour {
 	 * Also max speed is connected to the animator which will trigger the run animation.
 	 */
 	void Sprint(){// Running();  so i can find it with CTRL + F
-		if (Input.GetAxis ("Vertical") > 0 && !Input.GetKey(KeyCode.Mouse1) && meeleAttack == false && !Input.GetKey(KeyCode.Mouse0)) {
+		if (Input.GetAxis ("Vertical") > 0 && !(Input.GetKey(KeyCode.Mouse1) || Input.GetKeyDown(KeyCode.Joystick1Button4)) && meeleAttack == false && !(Input.GetKey(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.Joystick1Button5))) {
 			if (Input.GetKeyDown (KeyCode.LeftShift)) {
 				if (pmS.maxSpeed == walkingSpeed) {
 					pmS.maxSpeed = runningSpeed;//sets player movement peed to max
@@ -221,7 +222,7 @@ public class GunScript : MonoBehaviour {
 	*/
 	void MeeleAttack(){	
 
-		if((Input.GetKeyDown(KeyCode.V) || (Input.GetKeyDown(KeyCode.Mouse3))) && !meeleAttack){			
+		if((Input.GetKeyDown(KeyCode.V) || Input.GetKeyDown(KeyCode.Mouse3) || Input.GetKeyDown(KeyCode.Joystick1Button1)) && !meeleAttack){			
 			StartCoroutine("AnimationMeeleAttack");
 		}
 	}
@@ -343,12 +344,12 @@ public class GunScript : MonoBehaviour {
 
 		if (!meeleAttack) {
 			if (currentStyle == GunStyles.nonautomatic) {
-				if (Input.GetKeyDown(KeyCode.Mouse0)) {
+				if (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.Joystick1Button5)) {
 					ShootMethod ();
 				}
 			}
 			if (currentStyle == GunStyles.automatic) {
-				if (Input.GetKey(KeyCode.Mouse0)) {
+				if (Input.GetKey(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.Joystick1Button5)) {
 					ShootMethod ();
 				}
 			}
@@ -548,7 +549,8 @@ public class GunScript : MonoBehaviour {
 	 */
 	void DrawCrosshair(){
 		GUI.color = new Color(GUI.color.r, GUI.color.g, GUI.color.b, fadeout_value);
-		if(!Input.GetKey(KeyCode.Mouse1)){//if not aiming draw
+		if(!(Input.GetKey(KeyCode.Mouse1) || Input.GetKeyDown(KeyCode.Joystick1Button4)))
+        {//if not aiming draw
 			GUI.DrawTexture(new Rect(vec2(left_pos_crosshair).x + position_x(-expandValues_crosshair.x) + Screen.width/2,Screen.height/2 + vec2(left_pos_crosshair).y, vec2(size_crosshair_horizontal).x, vec2(size_crosshair_horizontal).y), vertical_crosshair);//left
 			GUI.DrawTexture(new Rect(vec2(right_pos_crosshair).x + position_x(expandValues_crosshair.x) + Screen.width/2,Screen.height/2 + vec2(right_pos_crosshair).y, vec2(size_crosshair_horizontal).x, vec2(size_crosshair_horizontal).y), vertical_crosshair);//right
 
@@ -593,7 +595,7 @@ public class GunScript : MonoBehaviour {
 			handsAnimator.SetFloat("walkSpeed",pmS.currentSpeed);
 			handsAnimator.SetBool("aiming", Input.GetKey(KeyCode.Mouse1));
 			handsAnimator.SetInteger("maxSpeed", pmS.maxSpeed);
-			if(Input.GetKeyDown(KeyCode.R) && pmS.maxSpeed < 5 && !reloading && !meeleAttack/* && !aiming*/){
+			if((Input.GetKeyDown(KeyCode.R) || Input.GetKeyDown(KeyCode.Joystick1Button2)) && pmS.maxSpeed < 5 && !reloading && !meeleAttack/* && !aiming*/){
 				StartCoroutine("Reload_Animation");
 			}
 		}

@@ -71,7 +71,7 @@ void FixedUpdate(){
 	/*
 	 * Reduxing mouse sensitvity if we are aiming.
 	 */
-	if(Input.GetKey(KeyCode.Mouse1)){
+	if(Input.GetKey(KeyCode.Mouse1) || Input.GetKey(KeyCode.Joystick1Button5)){
 		mouseSensitvity = mouseSensitvity_aiming;
 	}
 	else if(GetComponent<PlayerMovementScript>().maxSpeed > 5){

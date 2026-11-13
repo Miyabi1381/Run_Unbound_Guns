@@ -41,6 +41,9 @@ public class TitleManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        // カーソルを非表示にする
+        Cursor.lockState = CursorLockMode.Locked;
+
         // Action配列を生成
         modeActions = new Action[]
             {

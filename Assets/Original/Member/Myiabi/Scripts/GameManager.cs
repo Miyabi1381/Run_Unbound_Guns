@@ -3,12 +3,13 @@
  * 
  * @brief   ゲーム全体のシーン遷移/設定など
  * 
- * @author  
+ * @author  Banno Miyabi
  * 
  * @date    
  */
-
-
+// ======================================================================================
+// copyright: Copyright(c)2026 BannoMiyabi.
+// ======================================================================================
 using UnityEngine;
 using UnityEngine.SceneManagement;
 

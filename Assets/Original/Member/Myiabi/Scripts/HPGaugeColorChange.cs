@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿// ======================================================================================
+// copyright: Copyright(c)2026 BannoMiyabi.
+// ======================================================================================
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;

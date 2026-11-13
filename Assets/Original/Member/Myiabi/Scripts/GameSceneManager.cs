@@ -32,6 +32,12 @@ public class GameSceneManager : MonoBehaviour
         gameoverTxt.SetActive(false);
     }
 
+    // 更新処理
+    private void Update()
+    {
+        // バックスペースを押されたらシーン切り替え処理（デバッグ）
+        if (Input.GetKey(KeyCode.Backspace)) ClearSquence();
+    }
 
     // 通知を受け取れるよう有効にする
     void OnEnable()
@@ -42,7 +48,6 @@ public class GameSceneManager : MonoBehaviour
         // ゲームオーバー処理のメソッドを追加
         hpScript.onDeadPlayer += HandleGameover;
     }
-
 
     // 通知の受け取りを無効にする
     private void OnDisable()
@@ -56,7 +61,6 @@ public class GameSceneManager : MonoBehaviour
             hpScript.onDeadPlayer -= HandleGameover;
     }
 
-
     // クリア処理
     void HandleClear()
     {
@@ -68,7 +72,6 @@ public class GameSceneManager : MonoBehaviour
         StartCoroutine(ClearSquence());
     }
 
-
     // ゲームオーバー処理
     void HandleGameover()
     {
@@ -78,9 +81,7 @@ public class GameSceneManager : MonoBehaviour
         gameoverTxt.SetActive(true);
         // シーン切り替え処理
         StartCoroutine(ClearSquence());
-
     }
-
 
     // コルーチン処理
     IEnumerator ClearSquence()
@@ -101,6 +102,4 @@ public class GameSceneManager : MonoBehaviour
         // 指定秒後、シーンをロードする
         GameManager.instance.LoadScene(TitleScene);
     }
-
-
 }

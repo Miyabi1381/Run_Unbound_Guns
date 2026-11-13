@@ -1,10 +1,5 @@
 // ======================================================================================
-// File: AudioManager.cs
-//
-// Brief: 音の管理クラス
-//
-// Author: Banno Miyabi
-// Date: 2026/04/13
+// copyright: Copyright(c)2026 BannoMiyabi.
 // ======================================================================================
 using System.Collections.Generic;
 using UnityEngine;

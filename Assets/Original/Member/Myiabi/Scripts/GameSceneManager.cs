@@ -1,4 +1,7 @@
-﻿using System;
+﻿// ======================================================================================
+// copyright: Copyright(c)2026 BannoMiyabi.
+// ======================================================================================
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -29,6 +32,12 @@ public class GameSceneManager : MonoBehaviour
         gameoverTxt.SetActive(false);
     }
 
+    // 更新処理
+    private void Update()
+    {   
+        // バックスペースを押されたらシーン切り替え処理（デバッグ）
+        if (Input.GetKey(KeyCode.Backspace)) StartCoroutine(ClearSquence());
+    }
 
     // 通知を受け取れるよう有効にする
     void OnEnable()
@@ -94,7 +103,8 @@ public class GameSceneManager : MonoBehaviour
         {
             Debug.LogError("TitleScene 変数がインスペクターで設定されていません！");
         }
-
+        // カーソルの固定を解除する
+        Cursor.lockState = CursorLockMode.Confined;
         // 指定秒後、シーンをロードする
         GameManager.instance.LoadScene(TitleScene);
     }

@@ -32,12 +32,6 @@ public class GameSceneManager : MonoBehaviour
         gameoverTxt.SetActive(false);
     }
 
-    // 更新処理
-    private void Update()
-    {   
-        // バックスペースを押されたらシーン切り替え処理（デバッグ）
-        if (Input.GetKey(KeyCode.Backspace)) StartCoroutine(ClearSquence());
-    }
 
     // 通知を受け取れるよう有効にする
     void OnEnable()

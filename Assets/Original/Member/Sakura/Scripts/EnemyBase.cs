@@ -34,7 +34,6 @@ public class EnemyBase : MonoBehaviour
     [Tooltip("アニメーター")]
     protected Animator animator;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected virtual void Start()
     {
         // キャッシュを一度だけ取得

@@ -8,7 +8,7 @@ public class BootStrap : MonoBehaviour
     private void Awake()
     {
         // Bootstrapシーンから起動したかを、DontDestroyOnLoadで引っ越す前に覚えておく（後の「保険」の節で使う）
-        bool startedFromBootstrap = gameObject.scene.name == "MarinaTestScene";
+        bool startedFromBootstrap = gameObject.scene.name == "BootScene";
 
         DontDestroyOnLoad(gameObject); // 常駐化はここ1回だけ
 

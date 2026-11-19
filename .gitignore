@@ -146,3 +146,9 @@ InitTestScene*.unity*
 /Assets/_Tanks/Tutorial_Demo/Demo_Scenes/Demo_Scene_Data/Demo_LightingData/Lightmap-3_comp_dir.png
 /Assets/_Tanks/Tutorial_Demo/Demo_Scenes/Demo_Scene_Data/Demo_LightingData/Lightmap-2_comp_light.exr.meta
 /.gitignore
+/Assets/_Tanks/Art/Fonts/Bowlby_One/BowlbyOne_Regular.asset
+/Assets/_Tanks/Art/Fonts/Bowlby_One/BowlbyOne_Underlay.asset
+/Assets/_Tanks/Art/Fonts/Bowlby_One/BowlbyOne_Underlay_Outline.asset
+/Assets/_Tanks/Settings/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+/Assets/Settings/PC_RPAsset.asset
+/Assets/Settings/UniversalRenderPipelineGlobalSettings.asset

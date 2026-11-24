@@ -11,11 +11,11 @@ public class EnemyHitbox : MonoBehaviour
     public bool isHead;
     public float headshotMultiplier = 2f;
 
-    private SakuraHPScript hpScript;
+    private HPScript hpScript;
 
     private void Awake()
     {
-        hpScript = GetComponentInParent<SakuraHPScript>();
+        hpScript = GetComponentInParent<HPScript>();
     }
 
     public void TakeDamage(int damage)

@@ -154,7 +154,6 @@ GameObject:
   - component: {fileID: 2647173726616568654}
   - component: {fileID: 3244680593168919549}
   - component: {fileID: 3756297154687310245}
-  - component: {fileID: 5854067699025967703}
   m_Layer: 0
   m_Name: NormalEnemyTest
   m_TagString: Enemy
@@ -267,7 +266,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9021628001639223417}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9ea9fa9b3d9a4a6459e954bfbd3bd78d, type: 3}
   m_Name: 
@@ -309,17 +308,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyData: {fileID: 11400000, guid: b04967aa739c1d84fab83411cedf5b75, type: 2}
---- !u!114 &5854067699025967703
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9021628001639223417}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2134cc16db738fa47a1ef9299e1c3576, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentHP: 0
-  maxHP: 0

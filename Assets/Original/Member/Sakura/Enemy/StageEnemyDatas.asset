@@ -40,3 +40,12 @@ MonoBehaviour:
       clip: {fileID: -203655887218126122, guid: a9204eed3d0bb1a4cb20f028ada8c227, type: 3}
     - animationName: Walk
       clip: {fileID: -203655887218126122, guid: 7a5f58f024520e645ae50f31c693ee1a, type: 3}
+  - sceneName: SakuraTestScene
+    modelPrefab: {fileID: 919132149155446097, guid: 5734094d3191ae349a029a0e037bac77, type: 3}
+    animations:
+    - animationName: Attack
+      clip: {fileID: -203655887218126122, guid: b6f9253ee5f666843a403f6a102c142d, type: 3}
+    - animationName: Idle
+      clip: {fileID: -203655887218126122, guid: a9204eed3d0bb1a4cb20f028ada8c227, type: 3}
+    - animationName: Walk
+      clip: {fileID: -203655887218126122, guid: 7a5f58f024520e645ae50f31c693ee1a, type: 3}

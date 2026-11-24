@@ -20,7 +20,8 @@ public class PressSpaceKeyState : TitleStateBase
     // 入力を取得して実行
     public override void HandleInput()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        // スペースキーorAボタン
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Joystick1Button0))
         {
             AudioManager.instance.PlaySE("Decision SE");
             titleManager.ChangeState(titleManager.mainMenuState);

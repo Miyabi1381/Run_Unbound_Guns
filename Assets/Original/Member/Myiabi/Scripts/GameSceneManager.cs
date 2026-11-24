@@ -36,7 +36,7 @@ public class GameSceneManager : MonoBehaviour
     private void Update()
     {
         // バックスペースを押されたらシーン切り替え処理（デバッグ）
-        if (Input.GetKey(KeyCode.Backspace)) ClearSquence();
+        if (Input.GetKey(KeyCode.Backspace)) GameManager.instance.LoadScene(TitleScene);
     }
 
     // 通知を受け取れるよう有効にする

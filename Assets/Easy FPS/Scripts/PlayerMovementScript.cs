@@ -88,7 +88,7 @@ public class PlayerMovementScript : MonoBehaviour {
 	* Handles jumping and ads the force and sounds.
 	*/
 	void Jumping(){
-		if (Input.GetKeyDown (KeyCode.Space) && grounded)
+		if ((Input.GetKeyDown (KeyCode.Space) || Input.GetKeyDown(KeyCode.Joystick1Button0)) && grounded)
 		{
 			rb.AddRelativeForce (Vector3.up * jumpForce);
 			if (_jumpSound)
@@ -176,7 +176,7 @@ public class PlayerMovementScript : MonoBehaviour {
 	* If player toggle the crouch it will scale the player to appear that is crouching
 	*/
 	void Crouching(){
-		if((Input.GetKey(KeyCode.LeftControl)) || (Input.GetKey(KeyCode.C))){
+		if(Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.C) || Input.GetKeyDown(KeyCode.Joystick1Button3)){
 			transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(1,0.6f,1), Time.deltaTime * 15);
 		}
 		else{

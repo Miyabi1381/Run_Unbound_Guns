@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40a598f72831a824aa4bae31264abcff, type: 3}
+  m_Name: StageEnemyDatas
+  m_EditorClassIdentifier: 
+  sceneEnemySetting:
+  - sceneName: DesertStage
+    modelPrefab: {fileID: 919132149155446097, guid: 5734094d3191ae349a029a0e037bac77, type: 3}
+    animations:
+    - animationName: Attack
+      clip: {fileID: -203655887218126122, guid: 2b84a00e40ec1ea42afd266280a8a939, type: 3}
+    - animationName: Idle
+      clip: {fileID: -203655887218126122, guid: 704c99edff5e153448e32b0c673153db, type: 3}
+    - animationName: Walk
+      clip: {fileID: -203655887218126122, guid: 96ce419b8daf5bd4ea5d7e300b698222, type: 3}
+  - sceneName: JungleStage
+    modelPrefab: {fileID: 919132149155446097, guid: cc431c1161853cb43b036991f3cb90ae, type: 3}
+    animations:
+    - animationName: Attack
+      clip: {fileID: -203655887218126122, guid: eb347135c514fd340b3991f5f8f91968, type: 3}
+    - animationName: Idle
+      clip: {fileID: -203655887218126122, guid: eb5804b66456b5b4c81da76b0350f45c, type: 3}
+    - animationName: Walk
+      clip: {fileID: -203655887218126122, guid: c780fad271a81684e97e3856147a04be, type: 3}
+  - sceneName: MoonStage
+    modelPrefab: {fileID: 919132149155446097, guid: 81df2fd4391f8aa439f95e18c3bc4795, type: 3}
+    animations:
+    - animationName: Attack
+      clip: {fileID: -203655887218126122, guid: b6f9253ee5f666843a403f6a102c142d, type: 3}
+    - animationName: Idle
+      clip: {fileID: -203655887218126122, guid: a9204eed3d0bb1a4cb20f028ada8c227, type: 3}
+    - animationName: Walk
+      clip: {fileID: -203655887218126122, guid: 7a5f58f024520e645ae50f31c693ee1a, type: 3}

@@ -20,9 +20,15 @@ public class EnemyHitbox : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        if (hpScript == null)
+        {
+            Debug.LogError("親のSakuraHPScriptが見つかりません", gameObject);
+            return;
+        }
+
         if (isHead)
         {
-            damage = Mathf.RoundToInt(damage * headshotMultiplier);
+            damage = hpScript.GetCurrentHP();
         }
 
         hpScript.TakeDamage(damage);

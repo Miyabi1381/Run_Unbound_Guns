@@ -188,19 +188,19 @@ public class GunScript : MonoBehaviour {
 	 * Also max speed is connected to the animator which will trigger the run animation.
 	 */
 	void Sprint(){// Running();  so i can find it with CTRL + F
+		if (pmS.isSliding) return;
+
 		if (Input.GetAxis ("Vertical") > 0 && !(Input.GetKey(KeyCode.Mouse1) || Input.GetKeyDown(KeyCode.Joystick1Button4)) && meeleAttack == false && !(Input.GetKey(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.Joystick1Button5))) {
 			if (Input.GetKeyDown (KeyCode.LeftShift)) {
 				if (pmS.maxSpeed == walkingSpeed) {
 					pmS.maxSpeed = runningSpeed;//sets player movement peed to max
-
-				} else {
-					pmS.maxSpeed = walkingSpeed;
-				}
+				} 
+				else { pmS.maxSpeed = walkingSpeed; }
 			}
-		} else {
-			pmS.maxSpeed = walkingSpeed;
-		}
+		} 
+		else { pmS.maxSpeed = walkingSpeed; }
 
+		pmS.isRunning = (pmS.maxSpeed == runningSpeed);
 	}
 
 	[HideInInspector]

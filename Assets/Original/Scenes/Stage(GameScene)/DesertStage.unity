@@ -1023,6 +1023,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 534488410538508029, guid: c391f12a928274acab8576bb6030641d, type: 3}
+      propertyPath: slideFriction
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 534488410538508029, guid: c391f12a928274acab8576bb6030641d, type: 3}
+      propertyPath: minSpeedToSlide
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2684988887278243463, guid: c391f12a928274acab8576bb6030641d, type: 3}
       propertyPath: m_Name
       value: Player

@@ -44,7 +44,36 @@ public class PlayerMovementScript : MonoBehaviour {
 	void FixedUpdate(){
 		RaycastForMeleeAttacks ();
 
-		PlayerMovementLogic ();
+		// スライディング状態中ならスライディング動作の処理を行い、それ以外は通常の動作を行う
+		if (isSliding) { SlidingMovementLogic(); }
+		else { PlayerMovementLogic(); }
+	}
+	/**
+	 * @brief スライディング動作の処理
+	 * @details 
+	 *	歩行・ダッシュ・しゃがみなど、プレイヤーが何らかの動作をしていない状態で
+	 *	ダッシュ中にしゃがみを入力したときに起きる動作状態
+	 * @param なし
+	 * @return なし
+	 */
+	void SlidingMovementLogic()
+	{
+        // 毎フレーム少しずつ速度を減衰させる
+        currentSlideSpeed = Mathf.MoveTowards(currentSlideSpeed, 0f, slideFriction * Time.fixedDeltaTime);
+
+        // 一定の速度以下になったらスライディング解除
+        if (currentSlideSpeed <= slideEndSpeed)
+        {
+            isSliding = false;
+            return;
+        }
+        
+		// 進行方向へ現在のスライディング速度を適用
+		rb.linearVelocity = new Vector3(
+			slideDirection.x * currentSlideSpeed,
+			rb.linearVelocity.y,
+			slideDirection.z * currentSlideSpeed);
+		currentSpeed = rb.linearVelocity.magnitude;
 	}
 	/*
 	* Accordingly to input adds force and if magnitude is bigger it will clamp it.
@@ -175,18 +204,66 @@ public class PlayerMovementScript : MonoBehaviour {
 	/*
 	* If player toggle the crouch it will scale the player to appear that is crouching
 	*/
-	void Crouching(){
-		if(Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.C) || Input.GetKeyDown(KeyCode.Joystick1Button3)){
-			transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(1,0.6f,1), Time.deltaTime * 15);
-		}
-		else{
-			transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(1,1,1), Time.deltaTime * 15);
+	void Crouching()
+	{
+		// しゃがみ入力（押し続けている）
+		bool crouchInput = Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.C) || Input.GetKey(KeyCode.Joystick1Button3);
+        // しゃがみ入力（押した瞬間）
+        bool crouchDown  = Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.C) || Input.GetKeyDown(KeyCode.Joystick1Button3);
 
+		// スライディング中の処理
+		if(isSliding)
+		{
+			// しゃがみキーを離す、ジャンプをするなどの行動入力を受け取った場合、スライディング状態を解除する
+			if (!crouchInput || Input.GetKeyDown(KeyCode.Space)) { isSliding = false; }
+			// スライディング処理
+			transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(1,0.6f,1), Time.deltaTime * 15);
+			return;
 		}
+		// ダッシュ中にしゃがみを押したとき、スライディング状態に移行する
+		if (isRunning)
+		{
+			if (isRunning && crouchDown && grounded && currentSpeed >= minSpeedToSlide)
+			{
+				isSliding = true;
+				isCrouching = false;
+				currentSlideSpeed = currentSpeed * slideSpeedMultiplier;
+				slideDirection = transform.forward;
+				return;
+			}
+			// 一定の速度を越えていなければしゃがみ状態にする
+			else if (currentSpeed < minSpeedToSlide) { isCrouching = crouchInput; }
+			// 入力を解除した場合
+			else { isCrouching = false; }
+		}
+		// 通常のしゃがみ状態
+		else { isCrouching = crouchInput; }
+
+		// 見た目の高さを変更
+		if (isCrouching) { transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(1, 0.6f, 1), Time.deltaTime * 15); }
+		else			 { transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(1,    1, 1), Time.deltaTime * 15); }
 	}
 
+    [Header("Sliding Settings")]
+	[Tooltip("スライディング時の速度倍率")]
+	[SerializeField] private float slideSpeedMultiplier = 1.6f; // 現在速度 × この倍率で滑る
+    [Tooltip("ダッシュ中にこの速度以上でしゃがむとスライディング状態に移行する")]
+    public float minSpeedToSlide = 4.0f;
+    [Tooltip("この速度以下まで減速したらスライディング解除")]
+    public float slideEndSpeed = 2.5f;
+	[Tooltip("スライディング時の摩擦力")]
+    public float slideFriction = 6.0f;	// 滑っている間の減速率（大きいほど早く止まる）
+    [Tooltip("走っている状態")]
+	[HideInInspector] public bool isRunning;  // GunScriptからダッシュ状態を受け取る
+    [Tooltip("スライディング状態")]
+    public bool isSliding { get; private set; }
+    [Tooltip("しゃがんでいる状態")]
+    public bool isCrouching { get; private set; }
 
-	[Tooltip("The maximum speed you want to achieve")]
+    private float currentSlideSpeed = 0f;
+    private Vector3 slideDirection;
+
+    [Tooltip("The maximum speed you want to achieve")]
 	public int maxSpeed = 5;
 	[Tooltip("The higher the number the faster it will stop")]
 	public float deaccelerationSpeed = 15.0f;

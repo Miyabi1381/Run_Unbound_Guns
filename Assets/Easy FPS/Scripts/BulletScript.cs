@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -67,15 +67,31 @@ public class BulletScript : MonoBehaviour {
 
                 }
 
-                if (hit.transform.tag == "Enemy")
+                if (hit.transform.tag == "Enemy" || hit.collider.GetComponent<EnemyHitbox>() != null)
                 {
-                    if (hit.collider.TryGetComponent<HPScript>(out HPScript hpScript))
-                    {
-                        hpScript.TakeDamage(damage);
-                    }
-                    Instantiate(bloodEffect, hit.point, Quaternion.LookRotation(hit.normal));
-                    Destroy(gameObject);
+                    // 敵の当たり判定を取得
+                    EnemyHitbox hitbox = hit.collider.GetComponent<EnemyHitbox>();
 
+                    if (hitbox != null)
+                    {
+                        hitbox.TakeDamage(damage);
+                    }
+                    else
+                    {
+                        // 従来の敵にも対応
+                        if (hit.collider.TryGetComponent<HPScript>(out HPScript hpScript))
+                        {
+                            hpScript.TakeDamage(damage);
+                        }
+                    }
+
+                    // 血のエフェクト
+                    if (bloodEffect != null)
+                    {
+                        Instantiate(bloodEffect, hit.point, Quaternion.LookRotation(hit.normal));
+                    }
+
+                    Destroy(gameObject);
                 }
 
                 if (hit.transform.tag == "Dummie")

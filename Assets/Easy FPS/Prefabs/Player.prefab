@@ -516,7 +516,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6661804543232801685}
-  - component: {fileID: 67687447349001392}
   - component: {fileID: 2960780870581661159}
   - component: {fileID: 6049192059673178642}
   - component: {fileID: 5301683004126754266}
@@ -548,14 +547,6 @@ Transform:
   - {fileID: 2349614741759109984}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &67687447349001392
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2684988887278243463}
-  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!136 &2960780870581661159
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -668,6 +659,11 @@ MonoBehaviour:
   jumpForce: 15000
   isJumping: 0
   cameraPosition: {x: 0, y: 0, z: 0}
+  slideSpeedMultiplier: 1.6
+  minSpeedToSlide: 4
+  slideEndSpeed: 2.5
+  slideFriction: 6
+  isRunning: 0
   maxSpeed: 5
   deaccelerationSpeed: 100000
   accelerationSpeed: 100000

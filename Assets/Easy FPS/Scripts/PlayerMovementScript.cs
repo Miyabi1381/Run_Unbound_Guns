@@ -149,7 +149,7 @@ public class PlayerMovementScript : MonoBehaviour {
 	void WalkingSound(){
 		if (_walkSound && _runSound) {
 			if (RayCastGrounded ()) { //for walk sounsd using this because suraface is not straigh			
-				if (currentSpeed > 1) {
+				if (currentSpeed > 1 && !isSliding) {
 					//				print ("unutra sam");
 					if (maxSpeed == 3) {
 						//	print ("tu sem");

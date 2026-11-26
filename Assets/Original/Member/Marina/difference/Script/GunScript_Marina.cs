@@ -33,6 +33,11 @@ public class GunScript_Marina : MonoBehaviour
     [Tooltip("武器ごとの与ダメ")]
     public int damageDealt = 5;
 
+	// -------------------------------------------------------------------------------------- リロード演出
+    [Header("Reload FOV")]
+    public float reloadZoomAmount_gun = 8f;
+    public float reloadZoomAmount_main = 3f;
+
 
     private Transform player;
 	private Camera cameraComponent;
@@ -130,15 +135,21 @@ public class GunScript_Marina : MonoBehaviour
 			secondCamera.fieldOfView = Mathf.SmoothDamp(secondCamera.fieldOfView, secondCameraZoomRatio_aiming, ref secondCameraZoomVelocity, gunAimTime);
 		}
 		//if not aiming
-		else{
-			gunPrecision = gunPrecision_notAiming;
-			recoilAmount_x = recoilAmount_x_non;
-			recoilAmount_y = recoilAmount_y_non;
-			recoilAmount_z = recoilAmount_z_non;
-			currentGunPosition = Vector3.SmoothDamp(currentGunPosition, restPlacePosition, ref gunPosVelocity, gunAimTime);
-			cameraComponent.fieldOfView = Mathf.SmoothDamp(cameraComponent.fieldOfView, cameraZoomRatio_notAiming, ref cameraZoomVelocity, gunAimTime);
-			secondCamera.fieldOfView = Mathf.SmoothDamp(secondCamera.fieldOfView, secondCameraZoomRatio_notAiming, ref secondCameraZoomVelocity, gunAimTime);
-		}
+		else{  // -------------------------------------------------------------------------- リロード演出
+            gunPrecision = gunPrecision_notAiming;
+            recoilAmount_x = recoilAmount_x_non;
+            recoilAmount_y = recoilAmount_y_non;
+            recoilAmount_z = recoilAmount_z_non;
+            currentGunPosition = Vector3.SmoothDamp(currentGunPosition, restPlacePosition, ref gunPosVelocity, gunAimTime);
+
+            float mainTarget = cameraZoomRatio_notAiming - (reloading ? reloadZoomAmount_main : 0f);
+            float gunTarget = secondCameraZoomRatio_notAiming - (reloading ? reloadZoomAmount_gun : 0f);
+
+			float zoomTime = reloading ? 0.25f : 0.08f;  // 入りはゆっくり、戻りは速く
+
+            cameraComponent.fieldOfView = Mathf.SmoothDamp(cameraComponent.fieldOfView, mainTarget, ref cameraZoomVelocity, zoomTime);
+            secondCamera.fieldOfView = Mathf.SmoothDamp(secondCamera.fieldOfView, gunTarget, ref secondCameraZoomVelocity, zoomTime);
+        }
 
 	}
 

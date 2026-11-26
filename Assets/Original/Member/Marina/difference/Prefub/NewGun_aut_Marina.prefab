@@ -2350,6 +2350,8 @@ MonoBehaviour:
   gunDisplayName: Fully automatic rifle
   amountOfBulletsPerLoad: 30
   damageDealt: 10
+  reloadZoomAmount_gun: 8
+  reloadZoomAmount_main: 3
   currentGunPosition: {x: 0, y: 0, z: 0}
   restPlacePosition: {x: -0.07, y: -0.06, z: 0.42}
   aimPlacePosition: {x: 0, y: -0.03, z: 0.3}

@@ -1200,7 +1200,7 @@ MonoBehaviour:
   runningSpeed: 5
   bulletsIHave: 9999
   bulletsInTheGun: 20
-  gunDisplayName: Semi-automaticRifle
+  gunDisplayName: Semi-automatic rifle
   amountOfBulletsPerLoad: 20
   damageDealt: 20
   currentGunPosition: {x: 0, y: 0, z: 0}

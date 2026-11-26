@@ -1194,12 +1194,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bd85acdd3eaae54fb7338ade3421c6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentStyle: 1
+  currentStyle: 0
   mls: {fileID: 0}
   walkingSpeed: 3
   runningSpeed: 5
   bulletsIHave: 9999
   bulletsInTheGun: 20
+  gunDisplayName: Semi-automaticRifle
   amountOfBulletsPerLoad: 20
   damageDealt: 20
   currentGunPosition: {x: 0, y: 0, z: 0}
@@ -1251,6 +1252,7 @@ MonoBehaviour:
   muzzelSpawn: {fileID: 193726}
   reloadChangeBulletsTime: 1.5
   HUD_bullets: {fileID: 0}
+  HUD_gunName: {fileID: 0}
   horizontal_crosshair: {fileID: 2800000, guid: e1aa4c90445944348a112c3b7fa4b318, type: 3}
   vertical_crosshair: {fileID: 2800000, guid: 3f8b669e9880644cbb903f67bbc9f824, type: 3}
   top_pos_crosshair: {x: -2.7, y: -20.8}
@@ -1260,7 +1262,7 @@ MonoBehaviour:
   size_crosshair_vertical: {x: 6, y: 28}
   size_crosshair_horizontal: {x: 20, y: 10}
   expandValues_crosshair: {x: 0, y: 0}
-  handsAnimator: {fileID: 9561740, guid: ceeced87fd8228a41821d485b7e3b591, type: 3}
+  handsAnimator: {fileID: 9596676}
   reloadAnimationName: Player_Reload
   aimingAnimationName: Player_AImpose
   meeleAnimationName: Character_Malee

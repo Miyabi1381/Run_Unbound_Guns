@@ -17,8 +17,12 @@ public class GunInventory_Marina : MonoBehaviour {
     public List<GameObject> gunPrefabs = new List<GameObject>();
     [Tooltip("Icons from weapons.(Fetched when you run the game)*MUST HAVE ICONS WITH CORRESPONDING NAMES IN RESOUCES FOLDER*")]
 	public Texture[] icons;
+	
+	// -------------------------------------------------------------------------------------------- アイコン描画配置変更
+	[Header("Weapon Wheel UI")]
+	[SerializeField] private WeaponWheelUI weaponWheel;
 
-	[HideInInspector]
+    [HideInInspector]
 	public float switchWeaponCooldown;
 
 	/*
@@ -26,18 +30,28 @@ public class GunInventory_Marina : MonoBehaviour {
 	 * Also will spawn a weapon upon start.
 	 */
 	void Awake(){
-		//StartCoroutine("UpdateIconsFromResources");
+        //StartCoroutine("UpdateIconsFromResources");
+        Debug.Log("GunInventory_Marina Awake");
 
-		StartCoroutine ("SpawnWeaponUponStart");//to start with a gun
+        StartCoroutine ("SpawnWeaponUponStart");//to start with a gun
 
 		if (gunPrefabs.Count == 0) // ---------------------------------- Marina
             print ("No guns in the inventory");
 	}
 
-	/*
+    // -------------------------------------------------------------------------------------------- アイコン描画配置変更
+	void Start()
+	{
+        if (weaponWheel == null) { Debug.LogError("weaponWheel が未設定です"); return; }
+        Debug.Log("Setup 呼び出し: icons=" + icons.Length);
+        weaponWheel.Setup(icons);
+    }
+
+
+    /*
 	*Waits some time then calls for a waepon spawn
 	*/
-	IEnumerator SpawnWeaponUponStart(){
+    IEnumerator SpawnWeaponUponStart(){
 		yield return new WaitForSeconds (0.5f);
 		StartCoroutine("Spawn",0);
 	}
@@ -124,6 +138,11 @@ public class GunInventory_Marina : MonoBehaviour {
 	 * It will check if we carry a gun and destroy it, and its then going to load a gun prefab from our Resources Folder.
 	 */
 	IEnumerator Spawn(int index){
+
+		// -------------------------------------------------------------------------------------------- アイコン描画配置変更
+		if (weaponWheel) weaponWheel.Select(index);
+
+
         if (weaponChanging) weaponChanging.Play();
         else print("Missing Weapon Changing music clip.");
 
@@ -154,21 +173,24 @@ public class GunInventory_Marina : MonoBehaviour {
         }
 	}
 
-	/*
+    /*
 	 * Unity buil-in method to draw GUI.
 	 * From here I am listing thourhg guns I have and drawing corresponding images on the sceen.
 	 */
-	void OnGUI(){
 
-		if(currentGun){
-			for(int i = 0; i < gunPrefabs.Count; i++){
-				DrawCorrespondingImage(i);
-			}
-		}
+    // -------------------------------------------------------------------------------------------- アイコン描画配置変更
 
-	}
+    //void OnGUI(){
 
-	[Header("GUI Gun preview variables")]
+    //	if(currentGun){
+    //		for(int i = 0; i < gunPrefabs.Count; i++){
+    //			DrawCorrespondingImage(i);
+    //		}
+    //	}
+
+    //}
+
+    [Header("GUI Gun preview variables")]
 	[Tooltip("Weapon icons style to pick.")]
 	public MenuStyle_Marina menuStyle = MenuStyle_Marina.horizontal; //  ------------------------------------------------- Marina
     [Tooltip("Spacing between icons.")]

@@ -265,6 +265,6 @@ public class EnemySpawner_Marina : MonoBehaviour
     {
         // ウェーブごとのスポーン上限と、現在のウェーブを表示
         enemyTxt.GetComponent<TextMeshProUGUI>().text = (waveSpawnUpperLimit - wavekillCount) + "/" + waveSpawnUpperLimit;
-        waveTxt.GetComponent<TextMeshProUGUI>().text  = "Wave " + waveCounter;
+        waveTxt.GetComponent<TextMeshProUGUI>().text = "Wave " + waveCounter + "/" + waveUpperCounter;  // ------------------------------------------------wave 最大数表記
     }
 }

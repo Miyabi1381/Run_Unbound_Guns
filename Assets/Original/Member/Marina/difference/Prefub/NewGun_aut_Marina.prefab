@@ -2347,6 +2347,7 @@ MonoBehaviour:
   runningSpeed: 5
   bulletsIHave: 9999
   bulletsInTheGun: 30
+  gunDisplayName: Fully automatic rifle
   amountOfBulletsPerLoad: 30
   damageDealt: 10
   currentGunPosition: {x: 0, y: 0, z: 0}
@@ -2398,6 +2399,7 @@ MonoBehaviour:
   muzzelSpawn: {fileID: 110108}
   reloadChangeBulletsTime: 1.5
   HUD_bullets: {fileID: 0}
+  HUD_gunName: {fileID: 0}
   horizontal_crosshair: {fileID: 2800000, guid: e1aa4c90445944348a112c3b7fa4b318, type: 3}
   vertical_crosshair: {fileID: 2800000, guid: 3f8b669e9880644cbb903f67bbc9f824, type: 3}
   top_pos_crosshair: {x: -2.7, y: -20.8}

@@ -25,7 +25,9 @@ public class GunScript_Marina : MonoBehaviour
 	public float bulletsIHave = 20;
 	[Tooltip("Preset value to tell with how much bullets will our waepon spawn inside rifle.")]
 	public float bulletsInTheGun = 5;
-	[Tooltip("Preset value to tell how much bullets can one magazine carry.")]
+    [Tooltip("HUDに表示する銃の名前")] //   ------------------------------------------------- 銃の名前
+    public string gunDisplayName = "ASSAULT RIFLE";
+    [Tooltip("Preset value to tell how much bullets can one magazine carry.")]
 	public float amountOfBulletsPerLoad = 5;
 
     [Tooltip("武器ごとの与ダメ")]
@@ -522,7 +524,8 @@ public class GunScript_Marina : MonoBehaviour
 	 * And drawing CrossHair from here.
 	 */
 	[Tooltip("HUD bullets to display bullet count on screen. Will be find under name 'HUD_bullets' in scene.")]
-	public TMP_Text HUD_bullets; //  ------------------------------------------------- Marina
+	public TMP_Text HUD_bullets; //  ------------------------------------------------- 銃弾UI
+    public TMP_Text HUD_gunName; //  ------------------------------------------------- 銃の名前
     void OnGUI(){
 		if(!HUD_bullets){
 			try{
@@ -533,9 +536,17 @@ public class GunScript_Marina : MonoBehaviour
 			}
 		}
 		if(mls && HUD_bullets)
-			HUD_bullets.text = bulletsIHave.ToString() + " - " + bulletsInTheGun.ToString();
+			HUD_bullets.text = bulletsInTheGun.ToString() + " / " + bulletsIHave.ToString();
 
-		DrawCrosshair();
+        if (!HUD_gunName)
+        {
+            GameObject g = GameObject.Find("HUD_gunName");
+            if (g) HUD_gunName = g.GetComponent<TMP_Text>();
+        }
+        if (HUD_gunName)
+            HUD_gunName.text = gunDisplayName;
+
+        DrawCrosshair();
 	}
 
 	[Header("Crosshair properties")]

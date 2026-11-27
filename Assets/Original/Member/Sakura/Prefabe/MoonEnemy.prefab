@@ -155,7 +155,7 @@ GameObject:
   - component: {fileID: 3244680593168919549}
   - component: {fileID: 3756297154687310245}
   m_Layer: 0
-  m_Name: NormalEnemyTest
+  m_Name: MoonEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -234,11 +234,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18c6378db8871eb44be3531068424148, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1.25
-  nearStopDistance: 1.5
-  farStopDistance: 30
-  fightInterval: 5
-  damage: 5
+  speed: 5
+  nearStopDistance: 3
+  farStopDistance: 50
+  fightInterval: 0.5
+  damage: 35
   attackCol: {fileID: 6131280898994177545}
 --- !u!114 &5645364639024354614
 MonoBehaviour:

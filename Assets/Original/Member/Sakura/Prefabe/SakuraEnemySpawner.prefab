@@ -1,0 +1,86 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6222876212190244805
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1961486441866887434}
+  - component: {fileID: 8184609030803285692}
+  - component: {fileID: -9037671969394811998}
+  m_Layer: 0
+  m_Name: SakuraEnemySpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1961486441866887434
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6222876212190244805}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8184609030803285692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6222876212190244805}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6965b4240fa4ee41b4c7f706019aab7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPrefab: {fileID: 2279077089010134958, guid: b0c47b6093c974b4d94acfa8f34f898d, type: 3}
+  spawnLimit: 5
+  waveSpawnUpperLimit: 0
+  waveUpperCounter: 0
+  enemyIncreasePerWave: 0
+  startToNextWaveTime: 0
+  levelUpWave: 0
+  nearSpawnDistance: 20
+  farSpawnDistance: 25
+  stageMinX: -45
+  stageMaxX: 45
+  stageMinZ: -45
+  stageMaxZ: 45
+--- !u!114 &-9037671969394811998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6222876212190244805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56b7115905f5dfd458eae67b0c967454, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPrefab: {fileID: 5645364639024354614, guid: 981afc46b8805fb46b979f1864d9459a, type: 3}
+  spawnLimit: 5
+  waveSpawnUpperLimit: 0
+  enemyIncreasePerWave: 0
+  startToNextWaveTime: 0
+  levelUpWave: 0
+  debugMode: 0
+  debugStartWave: 1
+  nearSpawnDistance: 20
+  farSpawnDistance: 25
+  stageMinX: -45
+  stageMaxX: 45
+  stageMinZ: -45
+  stageMaxZ: 45

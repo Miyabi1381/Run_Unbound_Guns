@@ -76,48 +76,15 @@ public class StageResultReporter : MonoBehaviour
         GameResult.Set(type, SceneManager.GetActiveScene().name);
         // ★スコアを追加する時は、ここで撃破数などを集めてGameResultに渡す
 
+        // リザルトへ遷移するまでポーズ画面を開けないようにする
+        // （開いて閉じると、止めたプレイヤーの操作が元に戻ってしまうため）
+        PauseMenu.IsBlocked = true;
+
         // ゲームを止める
-        StopPlayer();
+        // プレイヤー：timeScaleは止めないので、慣性で滑ったり落ちたりしないよう物理も止める
+        PlayerControlLock.Lock(true);
         StopEnemies();
         ReleaseCursor();
-    }
-
-
-    // プレイヤーの操作（移動・視点・射撃・武器切り替え）を止める
-    void StopPlayer()
-    {
-        PlayerMovementScript player = PlayerMovementScript.instance;
-        if (player == null) return;
-
-        // 移動
-        player.enabled = false;
-
-        // 視点（MouseLookScriptはLキーでカーソルを再ロックするので止めておく）
-        MouseLookScript mouseLook = player.GetComponent<MouseLookScript>();
-        if (mouseLook != null) mouseLook.enabled = false;
-
-        // 武器切り替えと、今持っている銃の射撃
-        // （銃はプレイヤーの子ではなく別オブジェクトとして生成されるので、GunInventoryから取得する）
-        GunInventory inventory = player.GetComponent<GunInventory>();
-        if (inventory != null)
-        {
-            inventory.enabled = false;
-
-            if (inventory.currentGun != null)
-            {
-                GunScript gun = inventory.currentGun.GetComponent<GunScript>();
-                if (gun != null) gun.enabled = false;
-            }
-        }
-
-        // 慣性で滑ったり落ちたりしないように物理を止める
-        Rigidbody rb = player.GetComponent<Rigidbody>();
-        if (rb != null)
-        {
-            rb.linearVelocity  = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
-            rb.isKinematic     = true;
-        }
     }
 
 

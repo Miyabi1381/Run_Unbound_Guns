@@ -107,7 +107,7 @@ public class TitleSceneManager : MonoBehaviour
     private int selectIndex;
     // 生成したプレビュー
     private GameObject[] previews;
-    // スティックが倒れたままか（倒しっぱなしで連続移動しないように）
+    // スティック・キーが倒れた（押された）ままか（倒しっぱなしで連続移動しないように）
     private bool isStickHeld;
     // タイトルロゴが動いている最中か（この間は入力を受け付けない）
     private bool isTitleMoving;
@@ -157,6 +157,9 @@ public class TitleSceneManager : MonoBehaviour
 
     void Update()
     {
+        // ポーズ画面が開いている間は入力を受け付けない
+        if (PauseMenu.IsOpen) return;
+
         switch (state)
         {
             case TitleState.PressStart:
@@ -232,6 +235,7 @@ public class TitleSceneManager : MonoBehaviour
     // ステージを選択する（ボタンにマウスが乗った時にも呼ばれる）
     public void SelectStage(int index)
     {
+        if (PauseMenu.IsOpen) return;
         if (state != TitleState.StageSelect) return;
         if (isStageSelectMoving) return;
         if (index < 0 || index >= stages.Length) return;
@@ -246,6 +250,7 @@ public class TitleSceneManager : MonoBehaviour
     // ステージを決定する（ボタンをクリックした時にも呼ばれる）
     public void DecideStage(int index)
     {
+        if (PauseMenu.IsOpen) return;
         if (state != TitleState.StageSelect) return;
         if (isStageSelectMoving) return;
         if (index < 0 || index >= stages.Length) return;
@@ -254,6 +259,9 @@ public class TitleSceneManager : MonoBehaviour
 
         // 遷移できない設定なら、UIを出さずにここで止める
         if (!CanLoadSelectedStage()) return;
+
+        // ステージへ遷移し始めたら、ポーズ画面を開けないようにする
+        PauseMenu.IsBlocked = true;
 
         PlaySE("Decision SE");
 
@@ -530,8 +538,10 @@ public class TitleSceneManager : MonoBehaviour
     int GetMoveInput()
     {
         // キーボード
-        if (Input.GetKeyDown(KeyCode.UpArrow)   || Input.GetKeyDown(KeyCode.W)) return -1;
-        if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)) return  1;
+        // （矢印キー・W/Sは"Vertical"軸にも割り当てられているので、押した時点で「押したまま」扱いにして
+        //   次のフレームに軸の値でもう一度動いてしまうのを防ぐ）
+        if (Input.GetKeyDown(KeyCode.UpArrow)   || Input.GetKeyDown(KeyCode.W)) { isStickHeld = true; return -1; }
+        if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)) { isStickHeld = true; return  1; }
 
         // マウスホイール（上に回すと上のステージへ）
         float wheel = Input.mouseScrollDelta.y;
@@ -561,11 +571,10 @@ public class TitleSceneManager : MonoBehaviour
     }
 
 
-    // 戻るボタン（右クリック / Esc / Bボタン）
+    // 戻るボタン（右クリック / Bボタン）※Escは全シーン共通でポーズ画面の開閉に使う
     bool IsCancelPressed()
     {
         return Input.GetMouseButtonDown(1)
-            || Input.GetKeyDown(KeyCode.Escape)
             || Input.GetKeyDown(KeyCode.Joystick1Button1);
     }
 

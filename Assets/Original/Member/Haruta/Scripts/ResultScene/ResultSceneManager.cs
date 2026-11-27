@@ -101,6 +101,9 @@ public class ResultSceneManager : MonoBehaviour
 
     void Update()
     {
+        // ポーズ画面が開いている間は入力を受け付けない
+        if (PauseMenu.IsOpen) return;
+
         if (state != ResultState.Wait) return;
 
         if (IsDecidePressed())
@@ -169,8 +172,9 @@ public class ResultSceneManager : MonoBehaviour
             return;
         }
 
-        // 二重に遷移しないよう入力を止める
+        // 二重に遷移しないよう入力を止める（遷移中はポーズ画面も開けないようにする）
         state = ResultState.Loading;
+        PauseMenu.IsBlocked = true;
 
         Fade(0f, 1f, fadeOutDuration, () =>
         {

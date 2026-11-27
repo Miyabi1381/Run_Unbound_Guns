@@ -188,19 +188,19 @@ public class GunScript : MonoBehaviour {
 	 * Also max speed is connected to the animator which will trigger the run animation.
 	 */
 	void Sprint(){// Running();  so i can find it with CTRL + F
+		if (pmS.isSliding) return;
+
 		if (Input.GetAxis ("Vertical") > 0 && !(Input.GetKey(KeyCode.Mouse1) || Input.GetKeyDown(KeyCode.Joystick1Button4)) && meeleAttack == false && !(Input.GetKey(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.Joystick1Button5))) {
 			if (Input.GetKeyDown (KeyCode.LeftShift)) {
 				if (pmS.maxSpeed == walkingSpeed) {
 					pmS.maxSpeed = runningSpeed;//sets player movement peed to max
-
-				} else {
-					pmS.maxSpeed = walkingSpeed;
-				}
+				} 
+				else { pmS.maxSpeed = walkingSpeed; }
 			}
-		} else {
-			pmS.maxSpeed = walkingSpeed;
-		}
+		} 
+		else { pmS.maxSpeed = walkingSpeed; }
 
+		pmS.isRunning = (pmS.maxSpeed == runningSpeed);
 	}
 
 	[HideInInspector]
@@ -423,7 +423,7 @@ public class GunScript : MonoBehaviour {
 	 * Creates bullets and muzzle flashes and calls for Recoil.
 	 */
 	private void ShootMethod(){
-		if(waitTillNextFire <= 0 && !reloading && pmS.maxSpeed < 5){
+		if(waitTillNextFire <= 0 && !reloading && (pmS.maxSpeed < 5 || pmS.isSliding)){
 
 			if(bulletsInTheGun > 0){
 
@@ -587,19 +587,28 @@ public class GunScript : MonoBehaviour {
 	* Setting the reload animation upon pressing R.
 	*/
 	void Animations(){
-
 		if(handsAnimator){
-
 			reloading = handsAnimator.GetCurrentAnimatorStateInfo(0).IsName(reloadAnimationName);
 
-			handsAnimator.SetFloat("walkSpeed",pmS.currentSpeed);
-			handsAnimator.SetBool("aiming", Input.GetKey(KeyCode.Mouse1));
-			handsAnimator.SetInteger("maxSpeed", pmS.maxSpeed);
-			if((Input.GetKeyDown(KeyCode.R) || Input.GetKeyDown(KeyCode.Joystick1Button2)) && pmS.maxSpeed < 5 && !reloading && !meeleAttack/* && !aiming*/){
-				StartCoroutine("Reload_Animation");
-			}
-		}
+            if (pmS.isSliding)
+            {
+                // スライディング中は移動速度を0、最大速度を歩き速度として渡し、待機(Idle)モーションにさせる
+                handsAnimator.SetFloat("walkSpeed", 0f);
+                handsAnimator.SetInteger("maxSpeed", walkingSpeed);
+            }
+            else
+            {
+                handsAnimator.SetFloat("walkSpeed", pmS.currentSpeed);
+                handsAnimator.SetInteger("maxSpeed", pmS.maxSpeed);
+            }
 
+            handsAnimator.SetBool("aiming", Input.GetKey(KeyCode.Mouse1));
+
+            if ((Input.GetKeyDown(KeyCode.R) || Input.GetKeyDown(KeyCode.Joystick1Button2)) && pmS.maxSpeed < 5 && !reloading && !meeleAttack/* && !aiming*/)
+            {
+                StartCoroutine("Reload_Animation");
+            }
+		}
 	}
 
 	[Header("Animation names")]
